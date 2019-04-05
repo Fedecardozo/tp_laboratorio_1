@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1554439551 source:c:\users\usuario\desktop\tp_laboratorio_1\tp_laboratorio_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Cardozo.h"
+
+1554438646 source:c:\users\usuario\desktop\tp_laboratorio_1\tp_laboratorio_1\cardozo.c
+
+1554439456 c:\users\usuario\desktop\tp_laboratorio_1\tp_laboratorio_1\cardozo.h
+
