@@ -57,18 +57,38 @@ void porcentaje(float x, int y,char *m){
 	printf("%s %f",m,resultado);
 
 }
+// punto 3
 void todosLosCostos(int x, float y, float z){
 
 	float total=y+z;
 
-	porcentaje(total,-10,"\n Tarjeta debito: $");
-	porcentaje(total,25,"\n Tarjeta de credito: $");
+	porcentaje(total,-10,"\n a) Tarjeta debito: $");
+	porcentaje(total,25,"\n b) Tarjeta de credito: $");
+	printf("\n c) Bitcoin $%f",total/4606954.55);
+	printf("\n d) Mostrar precio por km $%f",total/x);
+	printf("\n e) Mostrar diferencia de precio ingresada $%f \n",y-z);
 
-	/*printf("\n a) Tarjeta debito %f",total*0.9);
-		printf("\n b) Tarjeta de credito %f",total*1.25);
-		printf("\n c) Bitcoin %f",total/4606954.55);
-		printf("\n d) Mostrar precio por km %f",total/km);
-		printf("\n e) Mostrar diferencia de precio ingresada %f",latam-aero);*/
+
+}
+// punto 4
+void informe(float y, float z, int x){
+
+	printf("\n 4. Informar Resultados");
+
+	printf("\n Latam:");
+	porcentaje(y,-10,"\n a) Precio con tarjeta de débito: $");
+	porcentaje(y,25,"\n b) Precio con tarjeta de credito: $");
+	printf("\n c) Precio pagando con bitcoin: $%f",y/4606954.55);
+	printf("\n d) Precio unitario: $%f",y/x);
+
+	printf("\n Aerolíneas:");
+	porcentaje(z,-10,"\n a) Precio con tarjeta de débito: $");
+	porcentaje(z,25,"\n b) Precio con tarjeta de credito: $");
+	printf("\n c) Precio pagando con bitcoin: $%f",z/4606954.55);
+	printf("\n d) Precio unitario: $%f",z/x);
+
+	printf("\n La diferencia de precio es: $%f \n",z-y);
+
 
 }
 int menu(){
@@ -102,7 +122,7 @@ int menu(){
 	int opc;//,cont=0;
 
 
-	printf("\n\n 1. Ingresar km ");
+	printf("\n 1. Ingresar km ");
 	printf("\n 2. Ingresar precio de vuelos ");
 	printf("\n 3. Calcular todos los costos");
 	printf("\n 4. Informar Resultados");
@@ -110,10 +130,12 @@ int menu(){
 	printf("\n 6. Salir");
 
 	//Pido la opcion con un mensaje y la guardo en opc
-	opc=getInt("\n Ingrese opcion: ");
+	opc=getInt("\n\n Ingrese opcion: ");
+
+	system("cls");
 
 	//Valido que la opcion sea correcta segun los parametros asigandos
-	opc=validador(opc,1,6,3," Opcion incorrecta,ingrese opcion del 1 al 6: ");
+	opc=validador(opc,1,6,3," \nOpcion incorrecta,ingrese opcion del 1 al 6: ");
 
 	return opc;
 
@@ -131,17 +153,17 @@ void menuIngresado(){
 		switch(opcion){
 
 
-			case 1: km=getInt(" Ingrese kilometros: ");break;
+			case 1: km=getInt("\n Ingrese kilometros: ");break;
 
 			case 2:
-					printf("Ingresar vuelos: \n");
-					latam = getFloat(" -Precio vuelo Latam: ");
-					aero = getFloat(" -Precio vuelo Aerolineas: ");
+					printf("\nIngresar vuelos: ");
+					latam = getFloat("\n -Precio vuelo Latam: ");
+					aero = getFloat("\n -Precio vuelo Aerolineas: ");
 					break;
 
 			case 3:	todosLosCostos(km,aero,latam);break;
 
-			//case 4: informe();break;
+			case 4: informe(km,aero,latam);break;
 
 			//case 5: cargaForzada()break;*/
 
