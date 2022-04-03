@@ -7,12 +7,18 @@
 
 #ifndef OPERACIONESTP_1_H_
 #define OPERACIONESTP_1_H_
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#define TRUE  1
+#define FALSE 0
+
 // Prototypo
 int menu();
 int getInt(char*m);
 float getFloat(char*m);
+int bandera(int a, int b);
 int validador(int rta,int menor,int mayor,int cantidad,char*m);
 void porcentaje(float x, int y,char *m);
 void menuIngresado();
