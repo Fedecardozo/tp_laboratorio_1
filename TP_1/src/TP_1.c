@@ -12,8 +12,8 @@ int main(void) {
 
 	setbuf(stdout,NULL);
 
-	menu();
-	//menuIngresado(x);
+	//menu();
+	menuIngresado();
 
 	return EXIT_SUCCESS;
 }
