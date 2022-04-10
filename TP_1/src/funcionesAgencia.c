@@ -7,26 +7,35 @@ int getDobleFloat(float*y,float*z){
 
 	int uno;
 	int dos;
+	int retorno=0;
 	float num1,num2;
 	printf("\nIngresar vuelos: \n");
 
-	uno = getFloatPlus("\n -Precio vuelo Aerolineas: ", &num1, 1.00, 3000000.00, "\nPrecio incorrecto, \nIngrese precio:", 2);
-	dos = getFloatPlus("\n -Precio vuelo Latam: ", &num2, 1.00, 3000000.00, "\nPrecio incorrecto, \nIngrese precio:", 2);
+	uno = getFloatPlus("\n -Precio vuelo Aerolineas: ", &num1, 1.00, 3000000.00, "\nPrecio incorrecto \n -Ingrese precio:", 2);
 
-	if(uno == FALSE || dos == FALSE){
+	if(uno == FALSE){
 
-		printf("\n Demasiados errores! en el ingreso del precio");
-		return FALSE;
+		retorno= FALSE;
 
-	}else{
+	}else if(uno == TRUE){
 
-		*y = num1;
-		*z = num2;
-		return TRUE;
+		dos = getFloatPlus("\n -Precio vuelo Latam: ", &num2, 1.00, 3000000.00, "\nPrecio incorrecto \n -Ingrese precio:", 2);
 
 	}
 
+	if(dos == FALSE){
 
+		retorno= FALSE;
+
+	}else if(uno == TRUE && dos == TRUE){
+
+		*y = num1;
+		*z = num2;
+		retorno = TRUE;
+
+	}
+
+	return retorno;
 }
 
 
@@ -92,7 +101,7 @@ int todosLosCostos(int bool1,int bool2,int x, float y, float z){
 
 		}
 
-		printf("\nCalculos realizados!..\n");
+		printf("\n Calculos realizados!..\n");
 		return TRUE;
 
 	}else{

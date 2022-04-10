@@ -34,7 +34,8 @@ int getIntPlus(char*msj,int*x,int min,int max,char *msjError,int intentos){
 				scanf("%d",&aux);
 				cont++;
 
-			}else{
+			}
+			if(aux>=min && aux<=max){
 
 				*x = aux;
 				retorno = 1;
@@ -95,7 +96,8 @@ int getFloatPlus(char*msj,float*x,float min,float max,char *msjError,int intento
 				scanf("%f",&aux);
 				cont++;
 
-			}else{
+			}
+			if(aux>=min && aux<=max){
 
 				*x = aux;
 				retorno = 1;

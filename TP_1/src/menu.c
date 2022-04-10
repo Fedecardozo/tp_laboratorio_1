@@ -15,7 +15,7 @@ void menu(){
 
 void menuIngresado(){
 
-	int opcion,km,error;
+	int opcion,km,error=TRUE;
 	float aero,latam;
 	int flag1=FALSE,flag2=FALSE;
 	int tres=FALSE;
@@ -23,13 +23,19 @@ void menuIngresado(){
 
 	do{
 
-		menu();
-		//Pido la opcion con un mensaje y la guardo en opc
-		error=getIntPlus("\n\nIngrese una opcion: ",&opcion,1,6," \nOpcion incorrecta,ingrese opcion del 1 al 6: ",3);
+
 
 		if(error == 0){
 
 			opcion=7;
+			error=-1;
+
+		}else{
+
+			//muestro el menu;
+			menu();
+			//Pido la opcion con un mensaje y la guardo en opcion
+			error=getIntPlus("\n\nIngrese una opcion: ",&opcion,1,6," \nOpcion incorrecta,ingrese opcion del 1 al 6: ",3);
 
 		}
 		switch(opcion){
@@ -37,14 +43,14 @@ void menuIngresado(){
 
 			case 1:
 
-				flag1=getIntPlus("\n Ingrese kilometros: ",&km,1,1000000,"\nError km invalido!\nIngrese nuevamente:",2);
-
+				flag1=getIntPlus("\n Ingrese kilometros: ",&km,1,1000000,"\nError km invalido!\n-Ingrese nuevamente:",2);
+				error=flag1;
 				break;
 
 			case 2:
 
 				flag2=getDobleFloat(&aero,&latam);
-
+				error=flag2;
 				break;
 
 			case 3:
@@ -65,7 +71,7 @@ void menuIngresado(){
 
 
 
-	}while(opcion != 6 && error!=0);
+	}while(opcion != 6 && error!=-1);
 
 
 }
