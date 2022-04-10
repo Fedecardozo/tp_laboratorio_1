@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "operacionesTP_1.h"
+#include "menu.h"
 
 /*Una agencia de viaje necesita calcular costos para sus vuelos de Latam y Aerolíneas Argentinas
 para ofrecerlos a sus clientes.
@@ -12,7 +12,6 @@ int main(void) {
 
 	setbuf(stdout,NULL);
 
-	//menu();
 	menuIngresado();
 
 	return EXIT_SUCCESS;
