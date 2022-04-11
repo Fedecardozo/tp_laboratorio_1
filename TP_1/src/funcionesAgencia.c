@@ -64,8 +64,6 @@ int bandera(int a, int b){
 	}
 
 
-
-
 }
 
 //Calculos
@@ -149,8 +147,6 @@ void informe(int bool1,int bool2,int bool3){
 
 
 	}
-
-
 
 
 }

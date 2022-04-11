@@ -4,8 +4,11 @@
 #define TRUE  1
 #define FALSE 0
 
-// Prototypo
+// Prototypos
+
+// Hace un aumento porcentual o descuento segun si el numero(y) es positivo o negativo
 float porcentaje(float x, int y);
+
 float dividir(float x, float y);
 
 

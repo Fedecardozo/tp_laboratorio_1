@@ -5,6 +5,7 @@
 #include "funcionesAgencia.h"
 
 void menu();
-void menuIngresado();
+void menuIngresado(int opcion,int* error);
+
 
 #endif /* MENU_H_ */

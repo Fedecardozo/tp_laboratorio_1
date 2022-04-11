@@ -21,6 +21,7 @@ float dividir(float x, float y){
 
 }
 
+// Hace un aumento porcentual o descuento segun si el numero(y) es positivo o negativo
 float porcentaje(float x, int y){
 
 	float resultado;

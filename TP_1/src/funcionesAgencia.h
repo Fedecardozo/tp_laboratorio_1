@@ -7,6 +7,7 @@
 
 #define BTC 4606954.55
 
+//Variables que uso en los puntos 3 y 4
 float latamDebito,latamCredito,latamBtc,latamUnitario;
 float aeroDebito,aeroCredito,aeroBtc,aeroUnitario;
 float diferenciaPrecio;
