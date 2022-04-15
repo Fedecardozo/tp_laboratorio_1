@@ -3,7 +3,7 @@
 
 
 // guardar entero sin validacion
-void getInt(char*msj,int*x){
+int getInt(char*msj,int*x){
 
 	int num;
 
@@ -11,6 +11,8 @@ void getInt(char*msj,int*x){
 	scanf("%d",&num);
 
 	*x = num;
+
+	return 1;
 
 }
 

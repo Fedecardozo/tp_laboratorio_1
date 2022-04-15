@@ -130,15 +130,15 @@ void informe(int bool1,int bool2,int bool3){
 
 		printf("\n 4. Informar Resultados");
 
-			printf("\n\n Aerolíneas: ");
-			printf("\n a) Precio con tarjeta de débito: $ %f",aeroDebito);
+			printf("\n\n Aerolineas: ");
+			printf("\n a) Precio con tarjeta de debito: $ %f",aeroDebito);
 			printf("\n b) Precio con tarjeta de credito: $ %f",aeroCredito);
 			printf("\n c) Precio pagando con bitcoin: $ %f",aeroBtc);
 			printf("\n d) Precio unitario: $ %f",aeroUnitario);
 
 
 			printf("\n\n Latam:");
-			printf("\n a) Precio con tarjeta de débito: $ %f",latamDebito);
+			printf("\n a) Precio con tarjeta de debito: $ %f",latamDebito);
 			printf("\n b) Precio con tarjeta de credito: $ %f",latamCredito);
 			printf("\n c) Precio pagando con bitcoin: $ %f",latamBtc);
 			printf("\n d) Precio unitario: $ %f",latamUnitario);
