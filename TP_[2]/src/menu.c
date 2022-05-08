@@ -48,6 +48,29 @@ static void erroresAlta(int error){
 
 }
 
+/// @fn Informa los errores al dar de baja
+/// @param error para el switch
+static void erroresBaja(int error){
+
+
+	switch(error){
+
+	 case 0: printf("\nSE DIO DE BAJA CON EXITO !"); break;
+	 case -1: printf("\nERROR DATOS INVALIDOS !"); break;
+	 case -2: printf("\nNO EXISTE EL TAL ID !"); break;
+	 case -3: printf("\nNO HAY PASAJEROS CARGADOS !"); break;
+	 case -4: printf("\nNO SE DIO DE BAJA!"); break;
+	 default: printf("\nALGO SALIO MAL !"); break;
+
+
+
+	}
+
+
+}
+
+
+
 void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 	switch(opcion){
@@ -61,10 +84,12 @@ void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 		case 2:
 
+
 			break;
 
 		case 3:
 
+			erroresBaja(bajaPassenger(pasa, tam));
 
 			break;
 

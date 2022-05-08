@@ -4,6 +4,8 @@
 #define ARRAYPASSENGER_H_
 
 #include "utn.h"
+#include "funcionesPropias.h"
+
 #define LIBRE 1
 #define OCUPADO 0
 #define MAX_CARACTER 51
@@ -38,8 +40,12 @@ int initPassengers(Passenger *list, int len);
 int printPassengers(Passenger* p1,int tam);
 int addPassenger(Passenger* list, int len, int id, char name[],char
 		lastName[],float price,int typePassenger, char flycode[],int statusFlight);
+int removePassenger(Passenger* list, int len, int id);
+int findPassengerById(Passenger *list, int len, int id);
+
 
 //ABM
 int altaPassenger(Passenger* p1,int tam);
+int bajaPassenger(Passenger* p1,int tam);
 
 #endif /* ARRAYPASSENGER_H_ */

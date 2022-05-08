@@ -4,6 +4,7 @@
 //Prototypo
 static int generadorId(void);
 static int ObtenerIndexLibre(Passenger* p1, int tam);
+static int passengersVacio(Passenger *list, int len);
 
 /// @fn harcodeo los datos
 /// @param p1 array de Passenger
@@ -216,6 +217,38 @@ int addPassenger(Passenger* list, int len, int id, char name[],char
 	return retorno;
 }
 
+/// \brief Pregunta si las posiciones en el array están vacías,
+/// \param list Passenger* Puntero del array de pasajeros
+/// \param len int Longitud del arreglo
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0)vacio
+/// (1) Cargado
+static int passengersVacio(Passenger *list, int len) {
+
+	int retorno=-1;
+	int i;
+
+	if(list != NULL && len >0){
+		retorno=0;
+		for (i = 0; i < len; i++)
+		{
+
+			if(list[i].isEmpty==OCUPADO)
+			{
+				retorno=1;
+				break;
+			}
+
+		}
+
+	}
+
+	return retorno;
+
+
+}
+
+//FUNCIONES QUE DEVUELVEN INDICE
+
 /// @fn ObtenerIndexLibre
 /// @param p1 recibe un array tipo Paseenger
 /// @param tam es el tamanio del del array
@@ -256,7 +289,145 @@ static int ObtenerIndexLibre(Passenger* p1, int tam){
 
 }
 
+/// \brief find a Passenger by Id en devuelve la posición del índice en el arreglo.
+/// \param list Pasajero*
+/// \param len int
+/// \param id int
+///\return Posición del índice de pasajero de retorno o (-1) si [Longitud o
+///Puntero NULL recibido o pasajero no encontrado]
+int findPassengerById(Passenger *list, int len, int id) {
 
+	int retorno=-1;
+	int i;
+
+		if(list!= NULL && len >0)
+		{
+
+			for (i = 0; i < len; i++)
+			{
+
+				if(list[i].id== id)
+				{
+
+					retorno=i;
+					break;
+
+				}
+
+			}
+
+
+		}
+
+
+	return retorno;
+
+}
+
+///FUNCION PARA LA BAJA
+/// \brief Eliminar un Pasajero por Id (poner el indicador isEmpty en 1)
+///\lista de parámetros Pasajero*
+///\parametro len int
+///\id de parámetro int
+///\return int Retorna (-1) si Error [longitud inválida o NULL
+/// puntero o si no puede
+///encontrar un pasajero] - (0) si está bien (-3) No estaba seguro
+int removePassenger(Passenger* list, int len, int id)
+{
+	int retorno=-1;
+	int indice;
+
+		if(list!=NULL && len>0 && id>0){
+
+			indice=findPassengerById(list, len, id);
+
+			if(indice<0){
+
+				retorno=-1;
+
+			}else if(indice>=0){
+
+				//Preguntar si esta seguro
+				if(preguntarSoN("\nEsta seguro? Si o No: ", 2, "\nRespuesta invalida"))
+				{
+					list[indice].isEmpty=LIBRE;
+					retorno=0;
+
+				}
+				else
+				{
+
+					retorno=-2;
+				}
+
+			}
+
+
+		}
+
+	return retorno;
+}
+
+///FUNCION PARA LA MODIFICACION
+/// @fn modifica Passenger
+/// @brief modica un dato de pasajero
+/// @param recibe un tipo passenger list
+/// @param recibe el tamanio del arraylen
+/// @param recibe el id que va a buscar
+/// @return (-1)Datos nullos (-2) No se encontro ID
+/// (-3)Ingreso mal las opciones
+/// (-4)Ingreso mal los datos a modificar
+int editPassenger(Passenger* list, int len, int id){
+
+	int retorno=-1;
+	int indice;
+	int opcion;
+
+		if(list!=NULL && len>0 && id>0){
+
+			retorno=0;
+			indice=findPassengerById(list, len, id);
+
+			if(indice<0){
+
+				//ERROR NO ENCONTRO EL ID
+				retorno=-2;
+
+			}else if(indice>=0 && list[indice].isEmpty==OCUPADO){
+
+
+
+				if (opcionesParaModifcar(&opcion) == 0)
+				{
+
+					if (queModifcar(opcion,indice,list) == 0)
+					{
+						//SALIO TODOO BIEN
+						retorno =0;
+					}
+					else
+					{
+
+						//ERROR INGRESO MAL LOS DATOS
+						retorno = -4;
+
+					}
+
+				}
+				else
+				{
+					//ERROR INGRESO MAL LAS OPCIONES
+					retorno = -3;
+				}
+
+			}
+
+
+		}
+
+		return retorno;
+
+}
 //ABM
 
 /// @fn Da de alta un Passenger
@@ -293,4 +464,59 @@ int altaPassenger(Passenger* p1,int tam){
 	return retorno;
 
 }
+
+/// @fn Baja para passenger
+/// @param p1 arreglo passenger
+/// @param tam longitud del arreglo
+/// @return 0 bien -1 error parametros -2 no existe id -3 No hay pasajeros cargados
+/// -4 no estaba seguro
+int bajaPassenger(Passenger* p1,int tam){
+
+	int retorno=-1;
+	int id;
+	int rta;
+
+	if(p1 != NULL && tam >0)
+	{
+		if(passengersVacio(p1, tam))
+		{
+			if(utn_getNumero(&id, "\nIngrese numero ID:", "\nError Ingrese nuevamente: ", 0, 3000, 2)==0)
+			{
+				rta=removePassenger(p1, tam, id);
+				if(rta==0)
+				{
+
+					//ESTA OK
+					retorno = 0;
+
+				}
+				else if(rta==-1)
+				{
+
+					//NO EXISTE ID
+					retorno=-2;
+
+				}
+				else if(rta==-2)
+				{
+					//No se borro
+					retorno=-4;
+				}
+
+
+			}
+
+		}
+		else
+		{
+			retorno = -3;
+		}
+
+	}
+
+
+	return retorno;
+
+}
+
 
