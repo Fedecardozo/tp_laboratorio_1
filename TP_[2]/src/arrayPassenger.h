@@ -53,4 +53,9 @@ int altaPassenger(Passenger* p1,int tam);
 int bajaPassenger(Passenger* p1,int tam);
 int modificionPassenger(Passenger* p1,int tam);
 
+//FUNCIONES CALCULOS
+int promedioPassenger(Passenger* list, int len, float* promedio);
+int superanPricePromedio(Passenger* list, int len, float promedio);
+int printPromedioPassenger(Passenger* list, int len);
+
 #endif /* ARRAYPASSENGER_H_ */

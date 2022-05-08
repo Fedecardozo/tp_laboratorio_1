@@ -109,21 +109,25 @@ static void informar(Passenger* pasa,int tam){
 	}
 
 
+	//2.Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio
+	//promedio.
+	switch(printPromedioPassenger(pasa, tam))
+		{
 
-	//int errorOrdenType
-	//int errorPromedio
+		 case 0: printf("\nSE ESTA CALCULANDO..."); break;
+		 case -1: printf("\nERROR EN LOS DATOS !"); break;
+		 case -2: printf("\nNO HAY DATOS CARGADOS! !"); break;
+		 default: printf("\nSE CALCULO CON EXITO !"); break;
+
+		}
+
+	//3. Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’
 	//int errorOrdenFlycode
 
 
 
-	//errorOrdenType=printPasajaerosOrdenados;
+		//errorOrdenType=printPasajaerosOrdenados;
 
-
-	//2.Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio
-	//promedio.
-
-
-	//3. Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’
 
 }
 

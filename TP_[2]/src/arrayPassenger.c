@@ -850,3 +850,123 @@ int printSortPassengers(Passenger* list, int len, int order){
 	return retorno;
 
 }
+
+
+//FUNCIONES CALCULOS
+
+/// @fn promedio Passenger
+/// @param lista de pasajeros
+/// @param len longitud del array passenger
+/// @param promedio puntero para devolver el promedio
+/// @return 0 bien -1 mal[paramtros mal] o contador -2 lista vacia
+int promedioPassenger(Passenger* list, int len, float* promedio){
+
+	int retorno=-1;
+	float acumulador=0;
+	float contador=0;
+	int i;
+
+	if(list!=NULL && len >0 && promedio != NULL){
+
+		retorno =0;
+		if(passengersVacio(list, len))
+		{
+
+			for (i = 0; i < len; i++) {
+
+				if(list[i].isEmpty == OCUPADO){
+
+					acumulador = acumulador + list[i].price;
+					contador++;
+
+
+				}
+
+			}
+			if(contador>0 && acumulador >0)
+			{
+
+				*promedio = acumulador/contador;
+				retorno=contador;
+
+			}
+
+		}
+		else
+		{
+			retorno=-2;
+		}
+	}
+
+
+	return retorno;
+}
+
+/// @fn superan promedio Passenger
+/// @param lista de pasajeros
+/// @param len longitud del array passenger
+/// @param promedio para comparar cuantos lo superan
+/// @return 1 bien -1 mal o contador
+int superanPricePromedio(Passenger* list, int len, float promedio){
+
+	int retorno=-1;
+	int cont=0;
+	int i;
+
+	if (list != NULL && len > 0 && promedio > 0) {
+
+		retorno=0;
+
+		for (i = 0; i < len; i++) {
+
+			if (list[i].isEmpty == OCUPADO && list[i].price > promedio) {
+
+				cont++;
+
+			}
+
+		}
+		if(cont >=0){
+
+			retorno = cont;
+
+		}
+
+	}
+
+
+		return retorno;
+
+}
+
+/// @fn print Passenger promedio y los que los superan
+/// @param lista de pasajeros
+/// @param len longitud del array passenger
+/// @param promedio puntero para devolver el promedio
+/// @return 0 bien -1 mal[paramtros mal] o contador -2 lista vacia
+int printPromedioPassenger(Passenger* list, int len){
+
+	int retorno=-1;
+	float promedio;
+
+		if (list != NULL && len > 0)
+		{
+			retorno=promedioPassenger(list, len, &promedio);
+			if(retorno>0)
+			{
+				retorno=superanPricePromedio(list, len, promedio);
+				if(retorno>=0)
+				{
+					printf("\n\nTotal precios promedio de los pasajeros: %f",promedio);
+					printf("\nTotal que superan el precio promedio: %d",retorno);
+				}
+
+			}
+
+
+		}
+
+
+		return retorno;
+
+}
