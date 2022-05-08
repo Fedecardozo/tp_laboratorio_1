@@ -5,6 +5,8 @@
 static int generadorId(void);
 static int ObtenerIndexLibre(Passenger* p1, int tam);
 static int passengersVacio(Passenger *list, int len);
+static int queModifcar(int opc,int indice,Passenger*p );
+static int opcionesParaModifcar(int* x);
 
 /// @fn harcodeo los datos
 /// @param p1 array de Passenger
@@ -324,6 +326,8 @@ int findPassengerById(Passenger *list, int len, int id) {
 
 }
 
+//FUNCIONES QUE USA EL ABM
+
 ///FUNCION PARA LA BAJA
 /// \brief Eliminar un Pasajero por Id (poner el indicador isEmpty en 1)
 ///\lista de parámetros Pasajero*
@@ -376,7 +380,7 @@ int removePassenger(Passenger* list, int len, int id)
 /// @param recibe el id que va a buscar
 /// @return (-1)Datos nullos (-2) No se encontro ID
 /// (-3)Ingreso mal las opciones
-/// (-4)Ingreso mal los datos a modificar
+/// (-4)Ingreso mal los datos a modificar (-6)Se arrepintio
 int editPassenger(Passenger* list, int len, int id){
 
 	int retorno=-1;
@@ -396,16 +400,10 @@ int editPassenger(Passenger* list, int len, int id){
 			}else if(indice>=0 && list[indice].isEmpty==OCUPADO){
 
 
-
 				if (opcionesParaModifcar(&opcion) == 0)
 				{
-
-					if (queModifcar(opcion,indice,list) == 0)
-					{
-						//SALIO TODOO BIEN
-						retorno =0;
-					}
-					else
+					retorno= queModifcar(opcion,indice,list);
+					if (retorno == -1)
 					{
 
 						//ERROR INGRESO MAL LOS DATOS
@@ -428,6 +426,112 @@ int editPassenger(Passenger* list, int len, int id){
 		return retorno;
 
 }
+
+///FUNCION PARA LA MODIFICACION
+/// @fn opcionesParaModifcar
+/// @brief muetras opciones por pantalla
+/// @param puntero x para guardar la opcion recibida
+/// @return 0 Salio bien o -1 que lo recibe de getnumero
+/// sea el caso
+static int opcionesParaModifcar(int* x){
+
+	int retorno=0;
+
+	if(x != NULL){
+
+		printf("\nOpciones de lo que desea modificar");
+		printf("\n1-Nombre");
+		printf("\n2-Apellido");
+		printf("\n3-Precio");
+		printf("\n4-Tipo de pasajero");
+		printf("\n5-Codigo de vuelo");
+
+		retorno =utn_getNumero(x, "\nIngrese opcion: ", "\nError Ingrese nuevamente: ", 1, 5, 2);
+
+	}
+
+
+	return retorno;
+
+
+}
+
+///FUNCION PARA LA MODIFICACION
+/// @fn queModifcar
+/// @pre Segun la opcion ingresada por el usuario
+/// @post va a mostrar un msj y guardarlo en auxiliar
+/// De tipo Passenger
+/// @param opc la opcion para el switch
+/// @param indice para saber cual hay que modificar
+/// @param p el puntero passenger para sobreecribir con
+/// el auxiliar
+/// @return 0 bien o -1 mal
+static int queModifcar(int opc,int indice,Passenger*p ){
+
+	int retorno=-1;
+	Passenger aux;
+	aux=p[indice];
+
+	if(opc>0){
+
+
+		switch (opc) {
+
+		case 1:
+			//char c[MAX_CARACTER];
+			retorno = utn_getStringMayusculayMinuscula(aux.name, "\nIngrese nombre: ","\nError! de nuevo", MAX_CARACTER, 2);
+
+			break;
+
+		case 2:
+
+			retorno = utn_getStringMayusculayMinuscula(aux.lastName, "\nIngrese apellido: ","\nError! de nuevo", MAX_CARACTER, 2);
+
+			break;
+
+		case 3:
+			//float x;
+			retorno = utn_getNumeroFlotante(&aux.price, "\nIngrese precio: ","\nError! de nuevo",PRICE_MIN, PRICE_MAX, 2);
+
+			break;
+
+		case 4:
+			//int r;
+			retorno = utn_getNumero(&aux.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
+					   "\nError ingrese nuevamente:", 1, 3, 2);
+
+			break;
+
+		case 5:
+			//char codigo[MAX_CHARFLYCODE];
+			retorno = utn_getStringLetrasYnumerosLimite(aux.flycode, "\nIngrese codigo: ", "\nError",MAX_CHARFLYCODE, 2);
+
+			break;
+
+		default:
+			retorno = -1;
+			break;
+
+		}
+
+		if(retorno==0 && preguntarSoN("\nEstas seguro? Si-No: ", 2, "\nIngrese [si] o [no] ")){
+
+			p[indice]=aux;
+
+		}
+		else if(retorno ==0)
+		{
+			retorno = -6;
+		}
+
+
+	}
+
+	return retorno;
+}
+
+
+
 //ABM
 
 /// @fn Da de alta un Passenger
@@ -519,4 +623,42 @@ int bajaPassenger(Passenger* p1,int tam){
 
 }
 
+/// @fn Modificacion para passenger
+/// @param p1 arreglo passenger
+/// @param tam longitud del arreglo
+/// @return (-1)Datos nullos (-2) No se encontro ID
+/// (-3)Ingreso mal las opciones
+/// (-4)Ingreso mal los datos a modificar
+int modificionPassenger(Passenger* p1,int tam){
 
+	int retorno =-1;
+	int id;
+
+	if(p1 != NULL)
+	{
+		if(passengersVacio(p1, tam))
+		{
+
+			//HASTA EL RETORNO ES -1
+			if(utn_getNumero(&id, "\nIngrese id:", "\nDato invalido. Ingrese nuevamente: ", 0, 1200, 2)==0){
+
+				//RETORNO PUEDE 0 BIEN <0 QUE ALGO SALIO MAL
+				retorno=editPassenger(p1,tam,id);
+
+			}
+
+		}
+		else
+		{
+			//EL ARREGLO ESTA VACIO
+			retorno =-5;
+		}
+
+	}
+
+
+
+
+	return retorno;
+
+}

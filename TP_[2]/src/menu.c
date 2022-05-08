@@ -69,6 +69,27 @@ static void erroresBaja(int error){
 
 }
 
+/// @fn Informa los errores al modificar
+/// @param error para el switch
+static void erroresModificacion(int error){
+
+	switch(error){
+
+	 case 0: printf("\nSE MODIFICO CON EXITO !"); break;
+	 case -1: printf("\nERROR DATOS INVALIDOS !"); break;
+	 case -2: printf("\nNO EXISTE EL TAL ID !"); break;
+	 case -3: printf("\nINGRESO MAL LAS OPCIONES !"); break;
+	 case -4: printf("\nINGRESO MAL LOS DATOS A MODIFICAR!"); break;
+	 case -5: printf("\nNO HAY PASAJEROS CARGADOS !"); break;
+	 case -6: printf("\nNO SE MODIFICARION LOS DATOS !"); break;
+	 default: printf("\nALGO SALIO MAL !"); break;
+
+
+
+	}
+
+
+}
 
 
 void menuIngresado(int opcion,Passenger* pasa,int tam){
@@ -84,6 +105,7 @@ void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 		case 2:
 
+			erroresModificacion(modificionPassenger(pasa, tam));
 
 			break;
 

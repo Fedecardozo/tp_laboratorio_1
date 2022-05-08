@@ -47,5 +47,6 @@ int findPassengerById(Passenger *list, int len, int id);
 //ABM
 int altaPassenger(Passenger* p1,int tam);
 int bajaPassenger(Passenger* p1,int tam);
+int modificionPassenger(Passenger* p1,int tam);
 
 #endif /* ARRAYPASSENGER_H_ */
