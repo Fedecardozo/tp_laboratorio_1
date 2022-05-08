@@ -8,6 +8,7 @@ static int passengersVacio(Passenger *list, int len);
 static int queModifcar(int opc,int indice,Passenger*p );
 static int opcionesParaModifcar(int* x);
 static int ordenAlfabeticoYtipo(Passenger* list, int len, int order,int tipo);
+static int ordenFlycode(Passenger* list, int len, int order, int status);
 
 /// @fn harcodeo los datos
 /// @param p1 array de Passenger
@@ -200,6 +201,50 @@ int printPassengerTipo(Passenger* list, int len,int tipo){
 		for(i=0; i<len; i++)
 		{
 			if(list[i].isEmpty==OCUPADO && list[i].typePassanger==tipo)
+			{
+
+				imprimirUnPassengerColumna(list[i]);
+				printf("+-----------------------------------------------"
+							 "--------------------------------------+\n");
+
+				retorno=0;
+			}
+
+		}
+
+	}
+
+	return retorno;
+
+}
+
+/// @fn imprime un array de pasajero que esten cargados
+/// Y por estado de vuelo
+/// @param recibi un puntero tipo passenger
+/// @param la longitud para recorrer el array
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+int printPassengerStatus(Passenger* list, int len,int status){
+
+	int retorno=-1;
+	int i;
+
+	if(list!=NULL && len >=0 && status>=0 && status<=1)
+	{
+
+		printf("\n+---------------------------------------"
+					"----------------------------------------------+\n");
+		printf("|%50s %-34d|\n"," ESTADO DE VUELO ",status);
+		printf("+---------------------------------------"
+					"----------------------------------------------+\n");
+
+		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
+				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
+
+		printf("+-----------------------------------------------"
+				  "--------------------------------------+\n");
+		for(i=0; i<len; i++)
+		{
+			if(list[i].isEmpty==OCUPADO && list[i].statusFlight==status)
 			{
 
 				imprimirUnPassengerColumna(list[i]);
@@ -711,7 +756,7 @@ int modificionPassenger(Passenger* p1,int tam){
 }
 
 
-//FUNCIONES ORDENAMIENTO
+//FUNCIONES ORDENAMIENTO APELLIDO Y TIPO
 
 /// \brief Ordenar los elementos en el arreglo de pasajeros(apellido y TypePaseenger),
 ///  el orden de los argumentos. Indicar orden ARRIBA o ABAJO
@@ -968,5 +1013,147 @@ int printPromedioPassenger(Passenger* list, int len){
 
 
 		return retorno;
+
+}
+
+
+//FUNCIONES ORDENAMIENTO POR CODIGO Y ESTADO VUELO
+
+/// \brief Ordena los elementos del array de pasajeros(codigo vuelo y estado vuelo), el
+///  orden de los argumentos indicar orden ARRIBA o ABAJO
+/// \param list*  lista de Pasajero
+/// \param len longitud
+/// \param orden int [1] indica ARRIBA - [0] indica ABAJO
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+/// (-2)Error al ordenar alfabeticamente (-3)Arreglo vacio
+int sortPassengersByCode(Passenger* list, int len, int order)
+{
+	int retorno = -1;
+
+		if(list != NULL && len >= 0 &&  order>=0 && order<=1 )
+		{
+			if(passengersVacio(list, len))
+			{
+
+				if(ordenFlycode(list,len,order,1) >=0)
+				{
+					//Salio bien
+					retorno=0;
+
+				}
+				else
+				{
+					//Error al ordenar alfabeticamente
+					retorno=-2;
+
+				}
+
+			}
+			else
+			{
+				//Arreglo vacio
+				retorno=-3;
+			}
+
+
+		}
+
+			//Retorno =-1 error en los parametros
+		return retorno;
+
+
+	return 0;
+
+}
+
+/// @fn ordenFlycode ordena alfabeticamente una lista de pasajeros
+/// por el codigo de vuelo
+/// @param lista de pasajeros
+/// @param len longitud del array
+/// @param order [1]Orden ascendente [0] desendente
+/// @return 1 bien -1 mal 0 No hay para ordenar
+static int ordenFlycode(Passenger* list, int len, int order, int status){
+
+	int retorno = -1;
+	int flagSwap;
+	int i;
+	int renovacionLimite;
+	Passenger auxCambio;
+
+	if(list != NULL && len > 0 &&  order>=0 && order<=1 && status >=0 && status <=1)
+	{
+
+		retorno=0;
+		renovacionLimite = len-1;
+		do{
+
+			flagSwap=0;
+
+			for (i = 0; i <renovacionLimite ; i++)
+			{
+				if(list[i].isEmpty==OCUPADO && list[i].statusFlight==status)
+				{
+
+					if(swapCadenas(list[i].flycode ,list[i+1].flycode,MAX_CHARFLYCODE,order)>0)
+					{
+
+						flagSwap=1;
+						auxCambio=list[i];
+						list[i]=list[i+1];
+						list[i+1]=auxCambio;
+						retorno=1;
+
+					}
+
+				}
+
+			}
+
+			renovacionLimite--;
+
+		}while(flagSwap);
+
+
+	}
+
+	return retorno;
+
+}
+
+/// @fn imprime ordenado por codigo y estado de vuelo
+/// \param list*  lista de Pasajero
+/// \param len longitud
+/// \param estado [1]vuelo Activado [0]vuelo desactivado
+/// \param orden int [1] indica ARRIBA - [0] indica ABAJO
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+/// (-2)Error al ordenarlo por codigo de pasajero
+/// (-3)Esta vacio (-4)No se pudo imprimir los datos
+int printSortPassengersByCode(Passenger* list, int len, int order,int status){
+
+	int retorno=-1;
+
+	if(list!=NULL && len >=0 && order>=0 && order<=1)
+	{
+		retorno=sortPassengersByCode(list, len, order);
+
+		if(retorno==0)
+		{
+
+			if(printPassengerStatus(list, len, status)==0)
+			{
+				//SALIO OK
+				retorno=0;
+			}
+			else
+			{
+				//ERROR AL IMPRIMIR
+				retorno=-4;
+			}
+
+		}
+
+	}
+
+	return retorno;
 
 }

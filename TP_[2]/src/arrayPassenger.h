@@ -43,10 +43,13 @@ int addPassenger(Passenger* list, int len, int id, char name[],char
 int removePassenger(Passenger* list, int len, int id);
 int findPassengerById(Passenger *list, int len, int id);
 int printPassengerTipo(Passenger* list, int len,int tipo);
+int printPassengerStatus(Passenger* list, int len,int status);
 
 //FUNCIONES ORDENAMIENTO
 int sortPassengers(Passenger* list, int len, int order);
 int printSortPassengers(Passenger* list, int len, int order);
+int sortPassengersByCode(Passenger* list, int len, int order);
+int printSortPassengersByCode(Passenger* list, int len, int order,int status);
 
 //ABM
 int altaPassenger(Passenger* p1,int tam);

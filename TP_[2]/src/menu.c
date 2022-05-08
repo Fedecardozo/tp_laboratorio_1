@@ -122,11 +122,17 @@ static void informar(Passenger* pasa,int tam){
 		}
 
 	//3. Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’
-	//int errorOrdenFlycode
+	switch(printSortPassengersByCode(pasa, tam, 1, 1))
+		{
 
+		 case 0: printf("\nSE ORDENO CON EXITO !"); break;
+		 case -1: printf("\nERROR EN LOS DATOS !"); break;
+		 case -2: printf("\nERROR AL ORDENAR POR CODIGO !"); break;
+		 case -3: printf("\nNO HAY DATOS CARGADOS!"); break;
+		 case -4: printf("\nERROR AL IMPRIMIR TODOS LOS DATOS!"); break;
+		 default: printf("\nALGO SALIO MAL !"); break;
 
-
-		//errorOrdenType=printPasajaerosOrdenados;
+		}
 
 
 }
