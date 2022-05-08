@@ -76,6 +76,41 @@ int initPassengers(Passenger *list, int len) {
 
 }
 
+/// @fn pide Un Solo Dato al usuario
+/// @pre pide datos para llenar un pasajero y los valida
+/// @post y luego los copia en passanger pasado por parametro
+/// @param recibi un tipo passenger
+/// @return un 0 si esta todo bien o -1 si esta mal
+int pedirDatoPassenger(Passenger* p){
+
+	Passenger p1;
+	int retorno=-1;
+
+	if(p!=NULL){
+
+		if(utn_getStringMayusculayMinuscula(p1.name, "\nIngrese nombre:","\nError esta mal escrito" , MAX_CARACTER, 2)==0
+		   && utn_getStringMayusculayMinuscula(p1.lastName, "\nIngrese apellido:","\nError esta mal escrito" , MAX_CARACTER, 2)==0
+		   && utn_getNumeroFlotante(&p1.price, "\nIngrese precio: ", "\nError ingrese nuevamente: ", PRICE_MIN, PRICE_MAX, 2)==0
+		   && utn_getStringLetrasYnumerosLimite(p1.flycode, "\nIngrese codigo 10 digitos: ", "\nError, 10 digitos numeros y letras", MAX_CHARFLYCODE, 2)==0
+		   && utn_getNumero(&p1.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
+				   "\nError ingrese nuevamente:", 1, 3, 2)==0
+		   && utn_getNumero(&p1.statusFlight, "\n**Estado de vuelo** \n1)Activado \n0)Desactivado \nIngrese estado: ",
+				   "\nError ingrese nuevamente:", 0, 1, 2)==0)
+		{
+
+			p1.id = generadorId();
+			p1.isEmpty=OCUPADO;
+			retorno=0;
+			*p=p1;
+
+		}
+
+	}
+
+	return retorno;
+
+}
+
 /// @fn imprime un solo pasajero en filas
 /// @param imprimi un pasajero solo
 void imprimirUnPassenger(Passenger p1){
@@ -218,6 +253,44 @@ static int ObtenerIndexLibre(Passenger* p1, int tam){
 
 		return retorno;
 
+
+}
+
+
+//ABM
+
+/// @fn Da de alta un Passenger
+/// @param lista de pasajeros
+/// @param len longitud del array passenger
+/// @return 0 bien -1 mal -2 Esta lleno
+int altaPassenger(Passenger* p1,int tam){
+
+	Passenger p;
+	int retorno=-1;
+	int indice;
+
+	//Busco primero lugar vacio para que el usuario, para avisarle que no hay lugar
+	//antes de que complete los datos
+	indice = ObtenerIndexLibre(p1, tam);
+
+	if(indice>=0 && pedirDatoPassenger(&p)==0){
+
+		retorno=0;
+		if(addPassenger(p1, tam, p.id, p.name, p.lastName, p.price, p.typePassanger, p.flycode,p.statusFlight)==0){
+
+			retorno=0;
+
+		}
+
+
+	}else if(indice==-2){
+
+		//Esta lleno
+		retorno =-2;
+
+	}
+
+	return retorno;
 
 }
 

@@ -31,12 +31,31 @@ int menu(int* x){
 
 //***FUNCIONES DEL MENU
 
+/// @fn Informa los errores al dar de alta
+/// @param error para el switch
+static void erroresAlta(int error){
+
+	switch(error){
+
+	 case 0: printf("\nSE CARGO CON EXITO !"); break;
+	 case -1: printf("\nERROR DATOS INVALIDOS !"); break;
+	 case -2: printf("\nNO HAY MAS LUGAR !"); break;
+	 default: printf("\nALGO SALIO MAL !"); break;
+
+
+	}
+
+
+}
+
 void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 	switch(opcion){
 
 
 		case 1:
+
+			erroresAlta(altaPassenger(pasa, tam));
 
 			break;
 
