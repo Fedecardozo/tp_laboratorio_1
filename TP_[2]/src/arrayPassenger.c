@@ -7,6 +7,8 @@ static int ObtenerIndexLibre(Passenger* p1, int tam);
 static int passengersVacio(Passenger *list, int len);
 static int queModifcar(int opc,int indice,Passenger*p );
 static int opcionesParaModifcar(int* x);
+static int ordenAlfabetico(Passenger* list, int len, int order);
+static int orderTypePassenger(Passenger* list, int len);
 
 /// @fn harcodeo los datos
 /// @param p1 array de Passenger
@@ -661,4 +663,165 @@ int modificionPassenger(Passenger* p1,int tam){
 
 	return retorno;
 
+}
+
+
+//FUNCIONES ORDENAMIENTO
+
+/// \brief Ordenar los elementos en el arreglo de pasajeros(apellido y TypePaseenger),
+///  el orden de los argumentos. Indicar orden ARRIBA o ABAJO
+///\param listaPasajero*
+///\param len int
+///\param order int [1] indica ARRIBA - [0] indica ABAJO
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+/// (-2)Error al ordenar alfabeticamente (-3)Error al ordenarlo por tipo de pasajero
+/// (-4)Esta vacio
+int sortPassengers(Passenger* list, int len, int order){
+
+	int retorno = -1;
+
+		if(list != NULL && len >= 0 &&  order>=0 && order<=1 )
+		{
+			if(passengersVacio(list, len))
+			{
+
+				if(ordenAlfabetico(list,len,order) ==0)
+				{
+					retorno=0;
+
+					if(orderTypePassenger(list,len)==0)
+					{
+						//Salio bien
+						retorno=0;
+
+					}
+					else
+					{
+						//Error al ordenarlo por tipo de pasajero
+						retorno=-3;
+					}
+
+				}
+				else
+				{
+					//Error al ordenar alfabeticamente
+					retorno=-2;
+
+				}
+
+			}
+			else
+			{
+				//ARREGLO VACIO
+				retorno=-4;
+			}
+
+		}
+
+		//Retorno =-1 error en los parametros
+	return retorno;
+}
+
+/// @fn ordena alfabeticamente una lista de pasajeros
+/// por apellido
+/// @param lista de pasajeros
+/// @param len longitud del array
+/// @param order [1]Orden ascendente [0] desendente
+/// @return 1 bien 0 mal
+static int ordenAlfabetico(Passenger* list, int len, int order){
+
+	int retorno = -1;
+	int flagSwap;
+	int i;
+	int renovacionLimite;
+	Passenger auxCambio;
+
+
+	if(list != NULL && len >= 0 &&  order>=0 && order<=1 )
+	{
+
+		renovacionLimite = len-1;
+		do{
+
+			flagSwap=0;
+
+			for (i = 0; i <renovacionLimite ; i++)
+			{
+				if(list[i].isEmpty==OCUPADO)
+				{
+
+					if(swapCadenas(list[i].lastName ,list[i+1].lastName,MAX_CARACTER,order)>0)
+					{
+
+						flagSwap=1;
+						auxCambio=list[i];
+						list[i]=list[i+1];
+						list[i+1]=auxCambio;
+						retorno=0;
+
+					}
+
+				}
+			}
+
+			renovacionLimite--;
+
+		}while(flagSwap);
+
+	}
+
+	return retorno;
+
+
+}
+
+/// @fn orderdena TypePassenger
+/// @param lista de pasajeros
+/// @param len longitud del array passenger
+/// @return 1 bien 0 mal
+static int orderTypePassenger(Passenger* list, int len){
+
+	int retorno=-1;
+	int i;
+	int flagSwap=0;
+	Passenger aux;
+	int renovacionLimite;
+
+	if(list!=NULL && len >=0){
+
+		renovacionLimite=len-1;
+
+		do {
+
+			flagSwap = 0;
+			for (i = 0; i < renovacionLimite; i++)
+			{
+				if(list[i].isEmpty==OCUPADO)
+				{
+					//Pregunto list[i].typePassanger es mayor a list[i+1].typePassanger
+					if (list[i].typePassanger > list[i+1].typePassanger)
+					{
+
+						flagSwap = 1;
+						aux = list[i];
+						list[i] = list[i + 1];
+						list[i + 1] = aux;
+						retorno = 0;
+
+					}
+
+				}
+
+			}
+
+			//Despues de cada vuelta le descuento uno
+			renovacionLimite--;
+
+		//Se ejecuta mientra sea mayor a cero
+		} while (flagSwap);
+
+
+	}
+
+	return retorno;
 }

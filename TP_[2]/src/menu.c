@@ -91,6 +91,34 @@ static void erroresModificacion(int error){
 
 }
 
+static void informar(Passenger* pasa,int tam){
+
+
+	if(sortPassengers(pasa, tam, 1)==0)
+	{
+		printPassengers(pasa, tam);
+		printf("\nVACIO");
+
+	}
+
+
+
+	//int errorOrdenType
+	//int errorPromedio
+	//int errorOrdenFlycode
+
+	//1.Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.
+
+	//errorOrdenType=printPasajaerosOrdenados;
+
+
+	//2.Total y promedio de los precios de los pasajes, y cuántos pasajeros superan el precio
+	//promedio.
+
+
+	//3. Listado de los pasajeros por Código de vuelo y estados de vuelos ‘ACTIVO’
+
+}
 
 void menuIngresado(int opcion,Passenger* pasa,int tam){
 
@@ -118,7 +146,7 @@ void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 		case 4:
 
-
+			informar(pasa,tam);
 
 			break;
 
