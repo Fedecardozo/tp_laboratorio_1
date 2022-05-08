@@ -5,7 +5,7 @@ int main(void) {
 
 	setbuf(stdout,NULL);
 
-	puts("!!!Hola Mundo!!!");
+	printf("Inicio del tp");
 
 	return EXIT_SUCCESS;
 }
