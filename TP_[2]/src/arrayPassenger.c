@@ -825,3 +825,32 @@ static int orderTypePassenger(Passenger* list, int len){
 
 	return retorno;
 }
+
+/// @fn imprime ordenado por apellido y tipo de pasajero
+/// \param list*  lista de Pasajero
+/// \param len longitud
+/// \param estado [1]vuelo Activado [0]vuelo desactivado
+/// \param orden int [1] indica ARRIBA - [0] indica ABAJO
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+/// (-2)Error al ordenar alfabeticamente (-3)Error al ordenarlo por tipo de pasajero
+/// (-4)Esta vacio
+int printSortPassengers(Passenger* list, int len, int order){
+
+	int retorno=-1;
+
+	if(list!=NULL && len >=0 && order>=0 && order<=1)
+	{
+		retorno=sortPassengers(list, len, order);
+
+		if(retorno==0)
+		{
+
+			printPassengers(list, len);
+
+		}
+
+	}
+
+	return retorno;
+
+}

@@ -94,10 +94,16 @@ static void erroresModificacion(int error){
 static void informar(Passenger* pasa,int tam){
 
 
-	if(sortPassengers(pasa, tam, 1)==0)
+	//1.Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.
+	switch(printSortPassengers(pasa, tam, 1))
 	{
-		printPassengers(pasa, tam);
-		printf("\nVACIO");
+
+	 case 0: printf("\nSE ORDENO CON EXITO !"); break;
+	 case -1: printf("\nERROR EN LOS DATOS !"); break;
+	 case -2: printf("\nERRO AL ORDENAR ALFABETICAMENTE !"); break;
+	 case -3: printf("\nERROR AL ORDENAR TIPO PASAJERO !"); break;
+	 case -4: printf("\nNO HAY DATOS CARGADOS!"); break;
+	 default: printf("\nALGO SALIO MAL !"); break;
 
 	}
 
@@ -107,7 +113,7 @@ static void informar(Passenger* pasa,int tam){
 	//int errorPromedio
 	//int errorOrdenFlycode
 
-	//1.Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.
+
 
 	//errorOrdenType=printPasajaerosOrdenados;
 

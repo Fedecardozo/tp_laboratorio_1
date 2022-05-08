@@ -45,6 +45,7 @@ int findPassengerById(Passenger *list, int len, int id);
 
 //FUNCIONES ORDENAMIENTO
 int sortPassengers(Passenger* list, int len, int order);
+int printSortPassengers(Passenger* list, int len, int order);
 
 //ABM
 int altaPassenger(Passenger* p1,int tam);
