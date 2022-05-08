@@ -97,16 +97,21 @@ int printPassengers(Passenger* p1,int tam){
 	if(p1 != NULL && tam >=0){
 
 		retorno=0;
-
+		printf("+---------------------------------------"
+				"----------------------------------------------+\n");
+		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
+				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
+		  printf("+-----------------------------------------------"
+				  "--------------------------------------+\n");
 		for (i = 0; i < tam ; i++) {
 
 			if(p1[i].isEmpty==OCUPADO){
 
-				imprimirUnPassenger(p1[i]);
+				imprimirUnPassengerColumna(p1[i]);
+				printf("+-----------------------------------------"
+						"--------------------------------------------+\n");
 
 			}
-
-
 
 		}
 
@@ -114,6 +119,16 @@ int printPassengers(Passenger* p1,int tam){
 
 
 	return retorno;
+
+}
+
+/// @fn int imprimirPasajero(Passanger)
+/// @param imprimi un pasajero solo
+void imprimirUnPassengerColumna(Passenger p1){
+
+
+	printf("|%-15s|%-15s|%-15f|%-15s|%-10d|%-10d|\n"
+			,p1.name,p1.lastName,p1.price,p1.flycode,p1.typePassanger,p1.statusFlight);
 
 }
 
@@ -205,3 +220,4 @@ static int ObtenerIndexLibre(Passenger* p1, int tam){
 
 
 }
+

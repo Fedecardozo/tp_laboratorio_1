@@ -30,6 +30,7 @@ int harcodeo(Passenger* p1,int len);
 
 //FUNCIONES INDIVIDUALES
 void imprimirUnPassenger(Passenger p1);
+void imprimirUnPassengerColumna(Passenger p1);
 
 //FUNCIONES DE PASSENGER
 int initPassengers(Passenger *list, int len);
