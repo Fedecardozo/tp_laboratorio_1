@@ -13,22 +13,21 @@ int main(void) {
 
 	int opcion;
 	Passenger pasajero[TAM];
+	initPassengers(pasajero, TAM);
 
-		do{
+	do{
 
-			if(menu(&opcion)==-1){
+		if(menu(&opcion)==-1){
 
-				printf("\nError al procesar la opcion. Intentelo mas tarde!");
-				break;
+			printf("\nError al procesar la opcion. Intentelo mas tarde!");
+			break;
 
-			}
+		}
 
-			menuIngresado(opcion,pasajero,TAM);
+		menuIngresado(opcion,pasajero,TAM);
 
 
-		}while(opcion>0 && opcion<6);
-
-		return EXIT_SUCCESS;
+	}while(opcion>0 && opcion<6);
 
 
 	return EXIT_SUCCESS;

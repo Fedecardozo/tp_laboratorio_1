@@ -58,6 +58,8 @@ void menuIngresado(int opcion,Passenger* pasa,int tam){
 
 		case 5:
 
+				harcodeo(pasa,tam);
+				printPassengers(pasa, tam);
 
 			 break;
 

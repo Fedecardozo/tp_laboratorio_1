@@ -25,10 +25,16 @@ typedef struct{
 
 }Passenger;
 
+//HARCODEO
 int harcodeo(Passenger* p1,int len);
 
+//FUNCIONES INDIVIDUALES
+void imprimirUnPassenger(Passenger p1);
 
-
-//**** FIN CABECERAS DE FUNCION****
+//FUNCIONES DE PASSENGER
+int initPassengers(Passenger *list, int len);
+int printPassengers(Passenger* p1,int tam);
+int addPassenger(Passenger* list, int len, int id, char name[],char
+		lastName[],float price,int typePassenger, char flycode[],int statusFlight);
 
 #endif /* ARRAYPASSENGER_H_ */
