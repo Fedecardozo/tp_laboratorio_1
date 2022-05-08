@@ -42,6 +42,7 @@ int addPassenger(Passenger* list, int len, int id, char name[],char
 		lastName[],float price,int typePassenger, char flycode[],int statusFlight);
 int removePassenger(Passenger* list, int len, int id);
 int findPassengerById(Passenger *list, int len, int id);
+int printPassengerTipo(Passenger* list, int len,int tipo);
 
 //FUNCIONES ORDENAMIENTO
 int sortPassengers(Passenger* list, int len, int order);

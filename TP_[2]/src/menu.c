@@ -100,7 +100,7 @@ static void informar(Passenger* pasa,int tam){
 
 	 case 0: printf("\nSE ORDENO CON EXITO !"); break;
 	 case -1: printf("\nERROR EN LOS DATOS !"); break;
-	 case -2: printf("\nERRO AL ORDENAR ALFABETICAMENTE !"); break;
+	 case -2: printf("\nERROR AL ORDENAR ALFABETICAMENTE !"); break;
 	 case -3: printf("\nERROR AL ORDENAR TIPO PASAJERO !"); break;
 	 case -4: printf("\nNO HAY DATOS CARGADOS!"); break;
 	 case -5: printf("\nERROR AL IMPRIMIR TODOS LOS DATOS!"); break;
