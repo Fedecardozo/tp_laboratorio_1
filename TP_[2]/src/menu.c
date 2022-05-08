@@ -95,7 +95,7 @@ static void informar(Passenger* pasa,int tam){
 
 
 	//1.Listado de los pasajeros ordenados alfabéticamente por Apellido y Tipo de pasajero.
-	switch(printSortPassengers(pasa, tam, 1))
+	switch(printSortPassengers(pasa, tam,1))
 	{
 
 	 case 0: printf("\nSE ORDENO CON EXITO !"); break;
@@ -103,6 +103,7 @@ static void informar(Passenger* pasa,int tam){
 	 case -2: printf("\nERRO AL ORDENAR ALFABETICAMENTE !"); break;
 	 case -3: printf("\nERROR AL ORDENAR TIPO PASAJERO !"); break;
 	 case -4: printf("\nNO HAY DATOS CARGADOS!"); break;
+	 case -5: printf("\nERROR AL IMPRIMIR TODOS LOS DATOS!"); break;
 	 default: printf("\nALGO SALIO MAL !"); break;
 
 	}

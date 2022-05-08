@@ -116,6 +116,8 @@ int pedirDatoPassenger(Passenger* p){
 
 }
 
+//FUNCIONES QUE MUESTRAN POR PANTALLA
+
 /// @fn imprime un solo pasajero en filas
 /// @param imprimi un pasajero solo
 void imprimirUnPassenger(Passenger p1){
@@ -169,6 +171,50 @@ void imprimirUnPassengerColumna(Passenger p1){
 
 	printf("|%-15s|%-15s|%-15f|%-15s|%-10d|%-10d|\n"
 			,p1.name,p1.lastName,p1.price,p1.flycode,p1.typePassanger,p1.statusFlight);
+
+}
+
+/// @fn imprime un array de pasajero que esten cargados
+/// Y por tipo de pasajero
+/// @param recibi un puntero tipo passenger
+/// @param la longitud para recorrer el array
+///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
+static int printPassengerTipo(Passenger* list, int len,int tipo){
+
+	int retorno=-1;
+	int i;
+
+	if(list!=NULL && len >=0 && tipo>0 && tipo<=3)
+	{
+
+		printf("+---------------------------------------"
+					"----------------------------------------------+\n");
+		printf("|%50s %-34d|\n","TIPO DE PASAJERO ",tipo);
+		printf("+---------------------------------------"
+					"----------------------------------------------+\n");
+
+		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
+				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
+
+		printf("+-----------------------------------------------"
+				  "--------------------------------------+\n");
+		for(i=0; i<len; i++)
+		{
+			if(list[i].isEmpty==OCUPADO && list[i].typePassanger==tipo)
+			{
+
+				imprimirUnPassengerColumna(list[i]);
+				printf("+-----------------------------------------------"
+							 "--------------------------------------+\n");
+
+				retorno=0;
+			}
+
+		}
+
+	}
+
+	return retorno;
 
 }
 
@@ -553,7 +599,7 @@ int altaPassenger(Passenger* p1,int tam){
 	if(indice>=0 && pedirDatoPassenger(&p)==0){
 
 		retorno=0;
-		if(addPassenger(p1, tam, p.id, p.name, p.lastName, p.price, p.typePassanger, p.flycode,p.statusFlight)==0){
+		if(addPassenger(p1, tam, generadorId(), p.name, p.lastName, p.price, p.typePassanger, p.flycode,p.statusFlight)==0){
 
 			retorno=0;
 
@@ -687,7 +733,7 @@ int sortPassengers(Passenger* list, int len, int order){
 
 				if(ordenAlfabetico(list,len,order) ==0)
 				{
-					retorno=0;
+
 
 					if(orderTypePassenger(list,len)==0)
 					{
@@ -833,7 +879,7 @@ static int orderTypePassenger(Passenger* list, int len){
 /// \param orden int [1] indica ARRIBA - [0] indica ABAJO
 ///\return int Devuelve (-1) si hay error [longitud no válida o puntero NULL] - (0) si está bien
 /// (-2)Error al ordenar alfabeticamente (-3)Error al ordenarlo por tipo de pasajero
-/// (-4)Esta vacio
+/// (-4)Esta vacio (-5)No se pudo imprimir los datos
 int printSortPassengers(Passenger* list, int len, int order){
 
 	int retorno=-1;
@@ -845,7 +891,16 @@ int printSortPassengers(Passenger* list, int len, int order){
 		if(retorno==0)
 		{
 
-			printPassengers(list, len);
+			if(printPassengerTipo(list, len, 1)==0
+					&& printPassengerTipo(list, len, 2)==0
+					&& printPassengerTipo(list, len, 3)==0)
+			{
+				retorno=0;
+			}
+			else
+			{
+				retorno=-5;
+			}
 
 		}
 
