@@ -1091,12 +1091,11 @@ static int ordenFlycode(Passenger* list, int len, int order, int status){
 
 			for (i = 0; i <renovacionLimite ; i++)
 			{
-				if(list[i].isEmpty==OCUPADO && list[i].statusFlight==status)
-				{
+				//if(list[i].isEmpty == OCUPADO)
+				//{
 
 					if(swapCadenas(list[i].flycode ,list[i+1].flycode,MAX_CHARFLYCODE,order)>0)
 					{
-
 						flagSwap=1;
 						auxCambio=list[i];
 						list[i]=list[i+1];
@@ -1105,7 +1104,7 @@ static int ordenFlycode(Passenger* list, int len, int order, int status){
 
 					}
 
-				}
+				//}
 
 			}
 
