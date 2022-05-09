@@ -75,13 +75,14 @@ static void erroresModificacion(int error){
 
 	switch(error){
 
-	 case 0: printf("\nSE MODIFICO CON EXITO !"); break;
+	 case 0: printf("\nPROCESO TERMINADO !"); break;
 	 case -1: printf("\nERROR DATOS INVALIDOS !"); break;
 	 case -2: printf("\nNO EXISTE EL TAL ID !"); break;
 	 case -3: printf("\nINGRESO MAL LAS OPCIONES !"); break;
 	 case -4: printf("\nINGRESO MAL LOS DATOS A MODIFICAR!"); break;
-	 case -5: printf("\nNO HAY PASAJEROS CARGADOS !"); break;
-	 case -6: printf("\nNO SE MODIFICARION LOS DATOS !"); break;
+	 case -5: printf("\nRESPUESTA INCORRECTA !"); break;
+	 case -6: printf("\nRESPUESTA INCORRECTA !"); break;
+	 case -7: printf("\nNO HAY PASAJEROS CARGADOS !"); break;
 	 default: printf("\nALGO SALIO MAL !"); break;
 
 
@@ -114,9 +115,9 @@ static void informar(Passenger* pasa,int tam){
 	switch(printPromedioPassenger(pasa, tam))
 		{
 
-		 case 0: printf("\nSE ESTA CALCULANDO..."); break;
+		 //case 0: printf("\nSE ESTA CALCULANDO..."); break;
 		 case -1: printf("\nERROR EN LOS DATOS !"); break;
-		 case -2: printf("\nNO HAY DATOS CARGADOS! !"); break;
+		 case -2: printf("\nNO HAY DATOS CARGADOS!"); break;
 		 default: printf("\nSE CALCULO CON EXITO !"); break;
 
 		}

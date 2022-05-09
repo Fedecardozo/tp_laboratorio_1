@@ -5,7 +5,7 @@
 /// @param msj
 /// @param intentos
 /// @param msjError
-/// @return 1 si 0 no -1 mal los datos
+/// @return 1 si 0 no -1 mal los datos -2 Contesto mal
 int preguntarSoN(char*msj,int intentos, char*msjError){
 
 	int retorno=-1;
@@ -37,6 +37,7 @@ int preguntarSoN(char*msj,int intentos, char*msjError){
 				{
 
 					printf(msjError);
+					retorno=-2;
 
 				}
 

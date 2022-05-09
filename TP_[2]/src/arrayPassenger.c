@@ -5,8 +5,8 @@
 static int generadorId(void);
 static int ObtenerIndexLibre(Passenger* p1, int tam);
 static int passengersVacio(Passenger *list, int len);
-static int queModifcar(int opc,int indice,Passenger*p );
-static int opcionesParaModifcar(int* x);
+static int queModifcar(int indice,Passenger*p );
+static int opcionesParaModifcar(int opc, Passenger* list);
 static int ordenAlfabeticoYtipo(Passenger* list, int len, int order,int tipo);
 static int ordenFlycode(Passenger* list, int len, int order, int status);
 
@@ -470,14 +470,15 @@ int removePassenger(Passenger* list, int len, int id)
 /// @param recibe un tipo passenger list
 /// @param recibe el tamanio del arraylen
 /// @param recibe el id que va a buscar
-/// @return (-1)Datos nullos (-2) No se encontro ID
+/// @return 0 ok(-1)Datos nullos (-2) No se encontro ID
 /// (-3)Ingreso mal las opciones
-/// (-4)Ingreso mal los datos a modificar (-6)Se arrepintio
+/// (-4)Ingreso mal los datos a modificar
+/// (-5)mal respuesta de si esta seguro
+/// (-6)mal respuesta si desea continuar
 int editPassenger(Passenger* list, int len, int id){
 
 	int retorno=-1;
 	int indice;
-	int opcion;
 
 		if(list!=NULL && len>0 && id>0){
 
@@ -491,24 +492,11 @@ int editPassenger(Passenger* list, int len, int id){
 
 			}else if(indice>=0 && list[indice].isEmpty==OCUPADO){
 
-
-				if (opcionesParaModifcar(&opcion) == 0)
-				{
-					retorno= queModifcar(opcion,indice,list);
-					if (retorno == -1)
-					{
-
-						//ERROR INGRESO MAL LOS DATOS
-						retorno = -4;
-
-					}
-
-				}
-				else
-				{
-					//ERROR INGRESO MAL LAS OPCIONES
-					retorno = -3;
-				}
+				//-1 mal los datos -3 mal las opciones
+				//-4 mal datos a modificar
+				//-5 mal respuesta de si esta seguro
+				//-6 mal respuesta si desea continuar
+				retorno= queModifcar(indice,list);
 
 			}
 
@@ -522,26 +510,61 @@ int editPassenger(Passenger* list, int len, int id){
 ///FUNCION PARA LA MODIFICACION
 /// @fn opcionesParaModifcar
 /// @brief muetras opciones por pantalla
-/// @param puntero x para guardar la opcion recibida
-/// @return 0 Salio bien o -1 que lo recibe de getnumero
-/// sea el caso
-static int opcionesParaModifcar(int* x){
+/// @return -1 mal 0 bien
+static int opcionesParaModifcar(int opc, Passenger* list){
 
-	int retorno=0;
+	int retorno=-1;
+	Passenger aux=*list;
 
-	if(x != NULL){
+	if(list != NULL)
+	{
 
-		printf("\nOpciones de lo que desea modificar");
-		printf("\n1-Nombre");
-		printf("\n2-Apellido");
-		printf("\n3-Precio");
-		printf("\n4-Tipo de pasajero");
-		printf("\n5-Codigo de vuelo");
+		switch (opc)
+		{
 
-		retorno =utn_getNumero(x, "\nIngrese opcion: ", "\nError Ingrese nuevamente: ", 1, 5, 2);
+			case 1:
+				//char c[MAX_CARACTER];
+				retorno = utn_getStringMayusculayMinuscula(aux.name, "\nIngrese nombre: ","\nError! de nuevo", MAX_CARACTER, 2);
+
+				break;
+
+			case 2:
+
+				retorno = utn_getStringMayusculayMinuscula(aux.lastName, "\nIngrese apellido: ","\nError! de nuevo", MAX_CARACTER, 2);
+
+				break;
+
+			case 3:
+				//float x;
+				retorno = utn_getNumeroFlotante(&aux.price, "\nIngrese precio: ","\nError! de nuevo",PRICE_MIN, PRICE_MAX, 2);
+
+				break;
+
+			case 4:
+				//int r;
+				retorno = utn_getNumero(&aux.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
+						   "\nError ingrese nuevamente:", 1, 3, 2);
+
+				break;
+
+			case 5:
+				//char codigo[MAX_CHARFLYCODE];
+				retorno = utn_getStringLetrasYnumerosLimite(aux.flycode, "\nIngrese codigo: ", "\nError",MAX_CHARFLYCODE, 2);
+
+				break;
+
+			default:
+				retorno = -1;
+			break;
+
+		}
+
+		if(retorno==0)
+		{
+			*list=aux;
+		}
 
 	}
-
 
 	return retorno;
 
@@ -557,65 +580,79 @@ static int opcionesParaModifcar(int* x){
 /// @param indice para saber cual hay que modificar
 /// @param p el puntero passenger para sobreecribir con
 /// el auxiliar
-/// @return 0 bien o -1 mal
-static int queModifcar(int opc,int indice,Passenger*p ){
+/// @return 0 bien o -1 mal -3 mal las opciones
+/// -4 mal datos a modificar -5 mal respuesta si esta seguro
+/// -6 Mal la respuesta de si desea continuar
+static int queModifcar(int indice,Passenger*p ){
 
 	int retorno=-1;
 	Passenger aux;
 	aux=p[indice];
+	int respuesta;
+	int opc;
 
-	if(opc>0){
+	if(p != NULL && opc>0 && indice >=0 ){
+
+		do{
+			retorno= utn_getNumero(&opc, "\nOpciones de lo que desea modificar"
+					"\n1-Nombre"
+					"\n2-Apellido"
+					"\n3-Precio"
+					"\n4-Tipo de pasajero"
+					"\n5-Codigo de vuelo"
+					"\nIngrese opcion: ",
+					"\nError Ingrese nuevamente: ", 1, 5, 2);
+
+			if(retorno==0)
+			{
+				retorno= opcionesParaModifcar(opc, &aux);
+
+				if(retorno==0)
+				{
+					respuesta=preguntarSoN("\nEstas seguro? Si-No: ", 2, "\nIngrese [si] o [no]: ");
+
+					if(respuesta)
+					{
+						p[indice]=aux;
+						printf("\nSE MODIFICO CON EXITO !");
+					}
+					if(respuesta==0)
+					{
+						printf("\nNO SE MODIFICARION LOS DATOS !");
+					}
+					else if(respuesta<0)
+					{
+						//Mal la respuesta de si esta seguro
+						retorno=-5;
+						break;
+					}
 
 
-		switch (opc) {
+				}
+				else
+				{
+					//Mal los datos a modificar
+					retorno=-4;
+					break;
+				}
 
-		case 1:
-			//char c[MAX_CARACTER];
-			retorno = utn_getStringMayusculayMinuscula(aux.name, "\nIngrese nombre: ","\nError! de nuevo", MAX_CARACTER, 2);
 
-			break;
+				respuesta = preguntarSoN("\nDesea continuar modificando? Si-No: ", 2, "\nIngrese [si] o [no]: ");
+				if(respuesta<0)
+				{
+					//Mal la respuesta de si desea continuar
+					retorno=-6;
+					break;
+				}
+			}
+			else
+			{
+				//mal las opciones
+				retorno =-3;
+				break;
+			}
 
-		case 2:
-
-			retorno = utn_getStringMayusculayMinuscula(aux.lastName, "\nIngrese apellido: ","\nError! de nuevo", MAX_CARACTER, 2);
-
-			break;
-
-		case 3:
-			//float x;
-			retorno = utn_getNumeroFlotante(&aux.price, "\nIngrese precio: ","\nError! de nuevo",PRICE_MIN, PRICE_MAX, 2);
-
-			break;
-
-		case 4:
-			//int r;
-			retorno = utn_getNumero(&aux.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
-					   "\nError ingrese nuevamente:", 1, 3, 2);
-
-			break;
-
-		case 5:
-			//char codigo[MAX_CHARFLYCODE];
-			retorno = utn_getStringLetrasYnumerosLimite(aux.flycode, "\nIngrese codigo: ", "\nError",MAX_CHARFLYCODE, 2);
-
-			break;
-
-		default:
-			retorno = -1;
-			break;
-
-		}
-
-		if(retorno==0 && preguntarSoN("\nEstas seguro? Si-No: ", 2, "\nIngrese [si] o [no] ")){
-
-			p[indice]=aux;
-
-		}
-		else if(retorno ==0)
-		{
-			retorno = -6;
-		}
-
+		}while(respuesta);
 
 	}
 
@@ -718,9 +755,12 @@ int bajaPassenger(Passenger* p1,int tam){
 /// @fn Modificacion para passenger
 /// @param p1 arreglo passenger
 /// @param tam longitud del arreglo
-/// @return (-1)Datos nullos (-2) No se encontro ID
+/// @return 0 ok(-1)Datos nullos (-2) No se encontro ID
 /// (-3)Ingreso mal las opciones
 /// (-4)Ingreso mal los datos a modificar
+/// (-5)mal respuesta de si esta seguro
+/// (-6)mal respuesta si desea continuar
+/// (-7)EL ARREGLO ESTA VACIO
 int modificionPassenger(Passenger* p1,int tam){
 
 	int retorno =-1;
@@ -743,7 +783,7 @@ int modificionPassenger(Passenger* p1,int tam){
 		else
 		{
 			//EL ARREGLO ESTA VACIO
-			retorno =-5;
+			retorno =-7;
 		}
 
 	}

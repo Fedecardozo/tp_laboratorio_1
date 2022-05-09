@@ -495,15 +495,16 @@ int utn_getStringLetrasYnumerosLimite(char* pResultado, char* mensaje, char* men
 						retorno=0;
 						break;
 
-					}else if(intentos>0){
-
-						printf("%s",mensajeError);
-
 					}
 
-				intentos--;
 
-			   }
+			    }
+				if(intentos>0){
+
+					printf("%s",mensajeError);
+
+				}
+				intentos--;
 
 			}while(intentos>=0);
 
