@@ -3,7 +3,7 @@
 
 //globales
 static char TIPOPASAJERO[3][20]={{"CLASE TURISTA"},{"CLASE EJECUTIVA"},{"PRIMERA CLASE"}};
-static char ESTADOVUELO[2][20]={{"DESACTIVADO"},{"ACTIVADO"}};
+static char ESTADOVUELO[2][20]={{"INACTIVO"},{"ACTIVO"}};
 
 //Prototypo
 static int generadorId(void);
@@ -947,7 +947,7 @@ int printSortPassengers(Passenger* list, int len, int order){
 /// @param len longitud del array passenger
 /// @param promedio puntero para devolver el promedio
 /// @return 0 bien -1 mal[paramtros mal] o contador -2 lista vacia
-int promedioPassenger(Passenger* list, int len, float* promedio){
+int promedioPassenger(Passenger* list, int len, float* promedio,float* totalPrice){
 
 	int retorno=-1;
 	float acumulador=0;
@@ -973,7 +973,7 @@ int promedioPassenger(Passenger* list, int len, float* promedio){
 			}
 			if(contador>0 && acumulador >0)
 			{
-
+				*totalPrice=acumulador;
 				*promedio = acumulador/contador;
 				retorno=contador;
 
@@ -1036,17 +1036,19 @@ int printPromedioPassenger(Passenger* list, int len){
 
 	int retorno=-1;
 	float promedio;
+	float total;
 
 		if (list != NULL && len > 0)
 		{
-			retorno=promedioPassenger(list, len, &promedio);
+			retorno=promedioPassenger(list, len, &promedio,&total);
 			if(retorno>0)
 			{
 				retorno=superanPricePromedio(list, len, promedio);
 				if(retorno>=0)
 				{
-					printf("\n\nTotal precios promedio de los pasajeros: %f",promedio);
-					printf("\nTotal que superan el precio promedio: %d",retorno);
+					printf("\n\nTotal precios de los pasajeros: %f",total);
+					printf("\nTotal precios promedio de los pasajeros: %f",promedio);
+					printf("\nTotal que superan el precio promedio: %d\n",retorno);
 				}
 
 			}

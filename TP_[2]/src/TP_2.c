@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 //Tamaño de Passenger
-#define TAM 200
+#define TAM 2000
 
 #include "Arraypassenger.h"
 #include "menu.h"
