@@ -13,6 +13,7 @@
 #define PRICE_MAX 1000000.00
 #define PRICE_MIN 1000.00
 
+
 typedef struct{
 
 	int id;

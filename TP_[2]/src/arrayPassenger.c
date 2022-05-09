@@ -1,6 +1,10 @@
 
 #include "arrayPassenger.h"
 
+//globales
+static char TIPOPASAJERO[3][20]={{"CLASE TURISTA"},{"CLASE EJECUTIVA"},{"PRIMERA CLASE"}};
+static char ESTADOVUELO[2][20]={{"DESACTIVADO"},{"ACTIVADO"}};
+
 //Prototypo
 static int generadorId(void);
 static int ObtenerIndexLibre(Passenger* p1, int tam);
@@ -99,7 +103,7 @@ int pedirDatoPassenger(Passenger* p){
 		   && utn_getStringLetrasYnumerosLimite(p1.flycode, "\nIngrese codigo 10 digitos: ", "\nError, 10 digitos numeros y letras", MAX_CHARFLYCODE, 2)==0
 		   && utn_getNumero(&p1.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
 				   "\nError ingrese nuevamente:", 1, 3, 2)==0
-		   && utn_getNumero(&p1.statusFlight, "\n**Estado de vuelo** \n1)Activado \n0)Desactivado \nIngrese estado: ",
+		   && utn_getNumero(&p1.statusFlight, "\n**Estado de vuelo** \n 1)Activado \n 0)Desactivado \nIngrese estado: ",
 				   "\nError ingrese nuevamente:", 0, 1, 2)==0)
 		{
 
@@ -139,19 +143,19 @@ int printPassengers(Passenger* p1,int tam){
 	if(p1 != NULL && tam >=0){
 
 		retorno=0;
-		printf("+---------------------------------------"
+		printf("+-----------------------------------------------------------"
 				"----------------------------------------------+\n");
-		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
-				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
-		  printf("+-----------------------------------------------"
+		printf("|%-15s|%-15s|%-15s|%-15s|%-20s|%-20s|\n",
+				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo de pasajero"," Estado Vuelo");
+		  printf("+-------------------------------------------------------------------"
 				  "--------------------------------------+\n");
 		for (i = 0; i < tam ; i++) {
 
 			if(p1[i].isEmpty==OCUPADO){
 
 				imprimirUnPassengerColumna(p1[i]);
-				printf("+-----------------------------------------"
-						"--------------------------------------------+\n");
+				printf("+-----------------------------------------------------------"
+								"----------------------------------------------+\n");
 
 			}
 
@@ -168,9 +172,8 @@ int printPassengers(Passenger* p1,int tam){
 /// @param imprimi un pasajero solo
 void imprimirUnPassengerColumna(Passenger p1){
 
-
-	printf("|%-15s|%-15s|%-15f|%-15s|%-10d|%-10d|\n"
-			,p1.name,p1.lastName,p1.price,p1.flycode,p1.typePassanger,p1.statusFlight);
+	printf("|%-15s|%-15s|%-15f|%-15s|%-20s|%-20s|\n"
+			,p1.name,p1.lastName,p1.price,p1.flycode,TIPOPASAJERO[p1.typePassanger-1],ESTADOVUELO[p1.statusFlight]);
 
 }
 
@@ -187,25 +190,25 @@ int printPassengerTipo(Passenger* list, int len,int tipo){
 	if(list!=NULL && len >=0 && tipo>0 && tipo<=3)
 	{
 
-		printf("+---------------------------------------"
-					"----------------------------------------------+\n");
-		printf("|%50s %-34d|\n","TIPO DE PASAJERO ",tipo);
-		printf("+---------------------------------------"
-					"----------------------------------------------+\n");
+		printf("\n+-------------------------------------------------------------------"
+						  "--------------------------------------+\n");
+		printf("|%70s %-34s|\n","ORDENAMIENTO POR APELLIDO. TIPO DE PASAJERO: ",TIPOPASAJERO[tipo-1]);
+		printf("+-------------------------------------------------------------------"
+						  "--------------------------------------+\n");
 
-		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
-				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
+		printf("|%-15s|%-15s|%-15s|%-15s|%-20s|%-20s|\n",
+				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo de pasajero"," Estado Vuelo");
 
-		printf("+-----------------------------------------------"
-				  "--------------------------------------+\n");
+		printf("+-------------------------------------------------------------------"
+						  "--------------------------------------+\n");
 		for(i=0; i<len; i++)
 		{
 			if(list[i].isEmpty==OCUPADO && list[i].typePassanger==tipo)
 			{
 
 				imprimirUnPassengerColumna(list[i]);
-				printf("+-----------------------------------------------"
-							 "--------------------------------------+\n");
+				printf("+-------------------------------------------------------------------"
+								  "--------------------------------------+\n");
 
 				retorno=0;
 			}
@@ -231,25 +234,25 @@ int printPassengerStatus(Passenger* list, int len,int status){
 	if(list!=NULL && len >=0 && status>=0 && status<=1)
 	{
 
-		printf("\n+---------------------------------------"
-					"----------------------------------------------+\n");
-		printf("|%50s %-34d|\n"," ESTADO DE VUELO ",status);
-		printf("+---------------------------------------"
-					"----------------------------------------------+\n");
+		printf("\n+-------------------------------------------------------------------"
+								  "--------------------------------------+\n");
+		printf("|%67s %-37s|\n","ORDENAMIENTO POR CODIGO Y ESTADO DE VUELO ",ESTADOVUELO[status]);
+		printf("+-------------------------------------------------------------------"
+								  "--------------------------------------+\n");
 
-		printf("|%-15s|%-15s|%-15s|%-15s|%-10s|%-10s|\n",
-				" Nombres"," Apellidos"," Precio"," Codigo"," Tipo"," Estado");
+		printf("|%-15s|%-15s|%-15s|%-15s|%-20s|%-20s|\n",
+						" Nombres"," Apellidos"," Precio"," Codigo"," Tipo de pasajero"," Estado Vuelo");
 
-		printf("+-----------------------------------------------"
-				  "--------------------------------------+\n");
+		printf("+-------------------------------------------------------------------"
+								  "--------------------------------------+\n");
 		for(i=0; i<len; i++)
 		{
 			if(list[i].isEmpty==OCUPADO && list[i].statusFlight==status)
 			{
 
 				imprimirUnPassengerColumna(list[i]);
-				printf("+-----------------------------------------------"
-							 "--------------------------------------+\n");
+				printf("+-------------------------------------------------------------------"
+										  "--------------------------------------+\n");
 
 				retorno=0;
 			}
