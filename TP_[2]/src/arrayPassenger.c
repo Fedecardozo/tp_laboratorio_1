@@ -512,7 +512,7 @@ int editPassenger(Passenger* list, int len, int id){
 
 ///FUNCION PARA LA MODIFICACION
 /// @fn opcionesParaModifcar
-/// @brief muetras opciones por pantalla
+/// @brief Modifica los datos segun la opcion
 /// @return -1 mal 0 bien
 static int opcionesParaModifcar(int opc, Passenger* list){
 
