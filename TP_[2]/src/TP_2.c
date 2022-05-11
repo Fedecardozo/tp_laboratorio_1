@@ -4,8 +4,9 @@
 //Tamaño de Passenger
 #define TAM 2000
 
-#include "Arraypassenger.h"
+#include "vuelosPassengers.h"
 #include "menu.h"
+
 
 int main(void) {
 

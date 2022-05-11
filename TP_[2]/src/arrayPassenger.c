@@ -25,17 +25,17 @@ int harcodeo(Passenger* p1,int len){
 		if(p1!=NULL && len>0){
 
 
-			addPassenger(p1, len, generadorId(), "Dario", "Diaz",1500, 1, "hk8vPrmpuJ",1);
-			addPassenger(p1, len, generadorId(), "Esteban", "Estevanez", 5700, 1, "boSlxsM4Rp",1);
-			addPassenger(p1, len, generadorId(), "Abel", "Alvarez", 30000, 2, "cm2FgAXJ8B",1);
-			addPassenger(p1, len, generadorId(), "Bart", "Briasco", 2550.90, 2, "fs5uRqrZRA",1);
-			addPassenger(p1, len, generadorId(), "Carlos", "Cardozo", 1890, 3, "g4m2OCY1Mh",1);
+			addPassenger(p1, len, generadorId(), "Dario", "Diaz",1500, 1, "hk8vPrmpuJ");
+			addPassenger(p1, len, generadorId(), "Esteban", "Estevanez", 5700, 1, "boSlxsM4Rp");
+			addPassenger(p1, len, generadorId(), "Abel", "Alvarez", 30000, 2, "cm2FgAXJ8B");
+			addPassenger(p1, len, generadorId(), "Bart", "Briasco", 2550.90, 2, "fs5uRqrZRA");
+			addPassenger(p1, len, generadorId(), "Carlos", "Cardozo", 1890, 3, "g4m2OCY1Mh");
 
-			addPassenger(p1, len, generadorId(), "Fernando", "Fernandez",1500, 3, "dDqViLjRJc",1);
-			addPassenger(p1, len, generadorId(), "Gonzalo", "Gullit", 5700, 3, "iTkX5txObh",1);
-			addPassenger(p1, len, generadorId(), "Rodrigo", "Rodriguez", 30000, 1, "fbLJgXBmpi",1);
-			addPassenger(p1, len, generadorId(), "Hugo", "Hernandez", 2550.90, 2, "a1KpTUsVjq",1);
-			addPassenger(p1, len, generadorId(), "Ignacio", "Insaurralde", 1890, 1, "ehBpk4leKU",1);
+			addPassenger(p1, len, generadorId(), "Fernando", "Fernandez",1500, 3, "dDqViLjRJc");
+			addPassenger(p1, len, generadorId(), "Gonzalo", "Gullit", 5700, 3, "iTkX5txObh");
+			addPassenger(p1, len, generadorId(), "Rodrigo", "Rodriguez", 30000, 1, "fbLJgXBmpi");
+			addPassenger(p1, len, generadorId(), "Hugo", "Hernandez", 2550.90, 2, "a1KpTUsVjq");
+			addPassenger(p1, len, generadorId(), "Ignacio", "Insaurralde", 1890, 1, "ehBpk4leKU");
 
 			retorno=0;
 
@@ -102,13 +102,11 @@ int pedirDatoPassenger(Passenger* p){
 		   && utn_getNumeroFlotante(&p1.price, "\nIngrese precio: ", "\nError ingrese nuevamente: ", PRICE_MIN, PRICE_MAX, 2)==0
 		   && utn_getStringLetrasYnumerosLimite(p1.flycode, "\nIngrese codigo 10 digitos: ", "\nError, 10 digitos numeros y letras", MAX_CHARFLYCODE, 2)==0
 		   && utn_getNumero(&p1.typePassanger, "\n**Tipos de pasajeros** \n1-Clase turistica \n2-Clase ejecutiva \n3-Primera Clase  \nIngrese tipo:",
-				   "\nError ingrese nuevamente:", 1, 3, 2)==0
-		   && utn_getNumero(&p1.statusFlight, "\n**Estado de vuelo** \n 1)Activado \n 0)Desactivado \nIngrese estado: ",
-				   "\nError ingrese nuevamente:", 0, 1, 2)==0)
+				   "\nError ingrese nuevamente:", 1, 3, 2)==0)
 		{
-
-			p1.id = generadorId();
-			p1.isEmpty=OCUPADO;
+			//Esto se tiene que dar de alta en la funcion de dar de alta
+			//p1.id = generadorId();
+			//p1.isEmpty=OCUPADO;
 			retorno=0;
 			*p=p1;
 
@@ -278,7 +276,7 @@ int printPassengerStatus(Passenger* list, int len,int status){
 ///\return int Devuelve (-1) si Error [Longitud no válida o puntero NULL o sin
 ///espacio libre] - (0) si está bien
 int addPassenger(Passenger* list, int len, int id, char name[],char
-		lastName[],float price,int typePassenger, char flycode[],int statusFlight)
+		lastName[],float price,int typePassenger, char flycode[])
 {
 
 	int retorno =-1;
@@ -286,8 +284,7 @@ int addPassenger(Passenger* list, int len, int id, char name[],char
 
 	if(list != NULL && len>0 && id>0 && name != NULL
 			&& lastName != NULL && price > PRICE_MIN
-			&& typePassenger > 0 && flycode != NULL
-			&& statusFlight>=0)
+			&& typePassenger > 0 && flycode != NULL)
 	{
 
 		i=ObtenerIndexLibre(list, len);
@@ -301,7 +298,9 @@ int addPassenger(Passenger* list, int len, int id, char name[],char
 			list[i].price = price;
 			strncpy(list[i].flycode,flycode,sizeof(list[i].flycode));
 			list[i].typePassanger = typePassenger;
-			list[i].statusFlight = statusFlight;
+			//ESTO HAY QUE CAMBIARLO DE LUGAR
+			list[i].statusFlight = 1;
+			//PARA EL HARCODEO LO DEJO ASI
 			list[i].isEmpty=OCUPADO;
 
 			retorno=0;
@@ -670,21 +669,24 @@ static int queModifcar(int indice,Passenger*p ){
 /// @param lista de pasajeros
 /// @param len longitud del array passenger
 /// @return 0 bien -1 mal -2 Esta lleno
-int altaPassenger(Passenger* p1,int tam){
+int altaPassenger(Passenger* list,int tam){
 
-	Passenger p;
+	Passenger aux;
 	int retorno=-1;
 	int indice;
 
 	//Busco primero lugar vacio para que el usuario, para avisarle que no hay lugar
 	//antes de que complete los datos
-	indice = ObtenerIndexLibre(p1, tam);
+	indice = ObtenerIndexLibre(list, tam);
 
-	if(indice>=0 && pedirDatoPassenger(&p)==0){
+	if(indice>=0 && pedirDatoPassenger(&aux)==0){
 
 		retorno=0;
-		if(addPassenger(p1, tam, generadorId(), p.name, p.lastName, p.price, p.typePassanger, p.flycode,p.statusFlight)==0){
+		//Ya se da de alta
+		if(addPassenger(list, tam, generadorId(), aux.name, aux.lastName, aux.price, aux.typePassanger, aux.flycode)==0){
 
+			//Ya lo hace el addPassenger
+			//p1[indice].isEmpty=OCUPADO;
 			retorno=0;
 
 		}

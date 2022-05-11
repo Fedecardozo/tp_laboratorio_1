@@ -40,7 +40,7 @@ int pedirDatoPassenger(Passenger* p);
 int initPassengers(Passenger *list, int len);
 int printPassengers(Passenger* p1,int tam);
 int addPassenger(Passenger* list, int len, int id, char name[],char
-		lastName[],float price,int typePassenger, char flycode[],int statusFlight);
+		lastName[],float price,int typePassenger, char flycode[]);
 int removePassenger(Passenger* list, int len, int id);
 int findPassengerById(Passenger *list, int len, int id);
 int printPassengerTipo(Passenger* list, int len,int tipo);
