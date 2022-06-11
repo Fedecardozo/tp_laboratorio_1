@@ -518,7 +518,6 @@ int Passenger_getStatusFlight(Passenger* this,char* statusFlight){
 /// @param this
 /// @param pasajero
 /// @return -1 parametros nullos, 0 ok
-
 int Passenger_getTxt(Passenger* this,char* pasajero){
 
 	int retorno =-1;

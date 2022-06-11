@@ -36,7 +36,7 @@ int main()
     LinkedList* listaPasajeros = ll_newLinkedList();
     LinkedList* listaPasajerosBorrados = ll_newLinkedList();
 
-    if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"INCIANDO PROGRAMA..."))
+    if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"ESPERE INCIANDO PROGRAMA..."))
     {
     	puts("BIENVENIDO!!");
     }
@@ -165,7 +165,7 @@ int main()
             	}
             	else
             	{
-            		if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"\nCERRANDO PROGRAMA..."))
+            		if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"\nESPERE CERRANDO PROGRAMA..."))
             		{
             			puts("\nPROGRAMA CERRADO HASTA LUEGO!");
             		}
