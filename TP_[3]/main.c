@@ -34,9 +34,25 @@ int main()
     	option = menu();
         switch(option)
         {
-            case 1:
-                controller_loadFromText("data.csv",listaPasajeros);
-                break;
+        	case 1://Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
+
+				if(!controller_loadFromText(NAME_ARCHIVO,listaPasajeros))
+				{
+					puts("\nCARGA EXITOSA!!");
+
+				}
+				else
+				{
+					puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
+				}
+				break;
+            case 6:
+
+            	if(controller_ListPassenger(listaPasajeros) <= 0)
+            	{
+            		puts("\nNO HAY PASAJEROS CARGADOS!!!");
+            	}
+            	break;
         }
     }while(option != 10);
     return 0;

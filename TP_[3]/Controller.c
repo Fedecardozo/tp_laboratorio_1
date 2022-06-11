@@ -2,18 +2,43 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Passenger.h"
+#include "parser.h"
+#include "validacionPassenger.h"
 
 
 /** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -2 Error al abrir el archivo, -1 datos nullos
+ *  0 ok
  *
  */
-int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
+int controller_loadFromText(char* path,LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	FILE* archivo;
+
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+		archivo=fopen(path,"r");
+
+		if(archivo != NULL)
+		{
+			retorno=parser_PassengerFromText(archivo, pArrayListPassenger);
+			fclose(archivo);
+		}
+		else
+		{
+			//Error al abrir el archivo
+			retorno = -2;
+		}
+
+
+
+	}
+
+    return retorno;
 }
 
 /** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo binario).
@@ -68,12 +93,30 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -1 datos nullos,0 no hay cargados
+ * >0 cantidad de la lista
  *
  */
 int controller_ListPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int i=0;
+	Passenger* aux;
+
+	if(pArrayListPassenger != NULL && ll_len(pArrayListPassenger)>=0)
+	{
+
+		for(i=0; i<ll_len(pArrayListPassenger);i++)
+		{
+			aux = (Passenger*)ll_get(pArrayListPassenger, i);
+			imprimirUnPassenger(aux);
+
+		}
+
+		retorno=i;
+	}
+
+	 return retorno;;
 }
 
 /** \brief Ordenar pasajeros
