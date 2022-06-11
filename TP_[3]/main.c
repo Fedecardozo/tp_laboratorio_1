@@ -29,6 +29,7 @@ int main()
 
     int option=0;
     int error;
+    int borrado;
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     do{
@@ -65,6 +66,20 @@ int main()
 				{
 					controller_printErroresEdit(error);
 				}
+
+            	break;
+            case 5://Baja pasajero
+
+            	borrado = controller_removePassenger(listaPasajeros);
+
+            	if(borrado<0)
+            	{
+            		controller_printErroresRemove(borrado);
+            	}
+            	else
+            	{
+            		puts("\nSE ELIMINO CON EXITO!");
+            	}
 
             	break;
             case 6:

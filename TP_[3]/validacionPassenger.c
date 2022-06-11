@@ -485,7 +485,7 @@ int removePassenger(LinkedList* pArrayListPassenger, int id)
 		if(indice<0)
 		{
 
-			//NO exite id
+			//NO existe id
 			retorno=-1;
 
 		}
@@ -495,7 +495,7 @@ int removePassenger(LinkedList* pArrayListPassenger, int id)
 			imprimirUnPassenger((Passenger*)ll_get(pArrayListPassenger, indice));
 
 			//Preguntar si esta seguro
-			if(preguntarSoN("\nEsta seguro que desea eliminar este pasajero? Si o No: ", 2, "\nRespuesta invalida"))
+			if(preguntarSoN("\nEsta seguro que desea eliminar este pasajero? Si o No: ", 2, "\nRespuesta invalida")>0)
 			{
 				Passenger_delete((Passenger*)ll_pop(pArrayListPassenger, indice));
 				retorno=0;

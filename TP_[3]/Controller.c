@@ -163,12 +163,60 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return >0 devuelve el id
+ * -1 datos nullos
+ * -2 no existe el id
+ * -3 lista vacia
+ * -4 no se borro
  *
  */
 int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int id;
+	int rta;
+
+	if(pArrayListPassenger != NULL)
+	{
+		if(ll_len(pArrayListPassenger) > 0)
+		{
+			if(utn_getNumero(&id, "\nIngrese numero ID:", "\nError Ingrese nuevamente: ", 0, 9999, 2)==0)
+			{
+				rta=removePassenger(pArrayListPassenger, id);
+				if(rta>=0)
+				{
+
+					//ESTA OK
+					retorno = id;
+
+				}
+				else if(rta==-1)
+				{
+
+					//NO EXISTE ID
+					retorno=-2;
+
+				}
+				else if(rta==-2)
+				{
+					//No se borro
+					retorno=-4;
+				}
+
+
+			}
+
+		}
+		else
+		{
+			//Lista vacia
+			retorno = -3;
+		}
+
+	}
+
+
+	return retorno;
 }
 
 /** \brief Listar pasajeros
@@ -255,7 +303,29 @@ int controller_printErroresEdit(int error)
 			case -4: puts("\nDATOS INVALIDOS!"); break;
 			case -5:
 			case -6:	puts("\nRESPUESTA INCORRECTA"); break;
-			case -7: puts("\nNO HAY PASAJEROS PARA MODIFICAR"); break;
+			case -7: puts("\nNO HAY PASAJEROS PARA CARGADOS!"); break;
+		}
+	}
+
+	return retorno;
+}
+
+/// @fn int controller_printErroresRemove(int)
+/// @param error
+/// @return 0 ok -1 no habia errores
+int controller_printErroresRemove(int error)
+{
+	int retorno=-1;
+
+	if(error<=0)
+	{
+		retorno=0;
+		switch(error)
+		{
+			case -1: puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE!"); break;
+			case -2: puts("\nNO SE ENCONTRO EL ID!"); break;
+			case -3: puts("\nNO HAY PASAJEROS PARA CARGADOS!"); break;
+			case -4: puts("\nNO SE BORRO EL PASAJERO!"); break;
 		}
 	}
 
