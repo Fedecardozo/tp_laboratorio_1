@@ -57,11 +57,38 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -1 datos nulls 0 ok
  *
  */
 int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 {
+	int contDatos;
+	int retorno=-1;
+	Passenger* pasajero;
+	Passenger aux;
 
-    return 1;
+	if(pFile != NULL && pArrayListPassenger != NULL)
+	{
+		retorno =0;
+
+		do{
+
+			contDatos=fread(&aux,sizeof(Passenger),1,pFile);
+
+			//Evalauo que no se repitan los que estan ya en el archivo con los que estan en el linkedlist
+			if(contDatos==1 && findPassengerById(pArrayListPassenger, aux.id)<0)
+			{
+				pasajero = Passenger_newPassenger(aux);
+
+				//Guardo direccion de memoria en la linkedlist
+				retorno=ll_add(pArrayListPassenger, pasajero);
+
+
+			}
+
+		}while(!feof(pFile));
+
+	}
+
+    return retorno;
 }

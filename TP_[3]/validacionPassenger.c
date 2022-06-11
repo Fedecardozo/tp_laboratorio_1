@@ -256,6 +256,11 @@ int opcionesSort(int* criterio)
 
 }
 
+/// @fn int sortId(void*, void*)
+/// @param void* pasajero1
+/// @param void* pasajero2
+/// @return 1,-1 no son iguales
+/// 0 son iguales
 int sortId(void* pasajero1 ,void* pasajero2){
 
 	int retorno = 0;
@@ -289,6 +294,12 @@ int sortId(void* pasajero1 ,void* pasajero2){
 	return retorno;
 }
 
+
+/// @fn int sortName(void*, void*)
+/// @param void* pasajero1
+/// @param void* pasajero2
+/// @return 1,-1 no son iguales
+/// 0 son iguales
 int sortName(void* pasajero1 ,void* pasajero2){
 
 	int retorno = 0;
@@ -314,6 +325,12 @@ int sortName(void* pasajero1 ,void* pasajero2){
 	return retorno;
 }
 
+
+/// @fn int sortApellido(void*, void*)
+/// @param void* pasajero1
+/// @param void* pasajero2
+/// @return 1,-1 no son iguales
+/// 0 son iguales
 int sortApellido(void* pasajero1 ,void* pasajero2){
 
 	int retorno = 0;
@@ -339,6 +356,12 @@ int sortApellido(void* pasajero1 ,void* pasajero2){
 	return retorno;
 }
 
+
+/// @fn int sortPrecio(void*, void*)
+/// @param void* pasajero1
+/// @param void* pasajero2
+/// @return 1,-1 no son iguales
+/// 0 son iguales
 int sortPrecio(void* pasajero1 ,void* pasajero2){
 
 	int retorno = 0;
@@ -524,7 +547,6 @@ static int opcionesParaModifcar(int opc, Passenger* list){
 
 }
 
-
 /// @fn modifica Passenger
 /// @brief modica un dato de pasajero
 /// @param recibe un tipo passenger list
@@ -573,7 +595,6 @@ int editPassenger(LinkedList* pArrayListPassenger, int id){
 		return retorno;
 
 }
-
 
 
 ///FUNCIONES PARA LA BAJA

@@ -6,6 +6,8 @@
 #include "utn.h"
 
 #define NAME_ARCHIVO "data.csv"
+#define NAME_ARCHIVO_BINARIO "dataBin.csv"
+#define NAME_ID "ultimoId.txt"
 
 /****************************************************
     Menu:
@@ -49,6 +51,19 @@ int main()
 					puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
 				}
 				break;
+            case 2://Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).
+
+                if(!controller_loadFromBinary(NAME_ARCHIVO_BINARIO,listaPasajeros))
+                {
+                	puts("\nCARGA EXITOSA!!");
+
+                }
+			    else
+			    {
+			    	puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
+			    }
+
+            	break;
             case 3://Alta pasajero
 
             	if(!controller_addPassenger(listaPasajeros))

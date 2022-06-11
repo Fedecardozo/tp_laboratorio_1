@@ -45,13 +45,35 @@ int controller_loadFromText(char* path,LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -2 Error al abrir el archivo, -1 datos nullos
+ *  0 ok
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	FILE* archivo;
+
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+
+		archivo=fopen(path,"rb");
+		if(archivo != NULL)
+		{
+			retorno=parser_PassengerFromBinary(archivo, pArrayListPassenger);
+			fclose(archivo);
+		}
+		else
+		{
+			//Error al abrir el archivo
+			retorno = -2;
+		}
+
+	}
+
+    return retorno;
 }
+
 
 /** \brief Alta de pasajero
  *
@@ -111,7 +133,6 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 
 }
 
-
 /** \brief Modificar datos de pasajero
  *
  * \param path char*
@@ -157,7 +178,6 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 
 	return retorno;
 }
-
 
 /** \brief Baja de pasajero
  *
