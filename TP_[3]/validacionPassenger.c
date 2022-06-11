@@ -3,7 +3,7 @@
 
 static int queModifcar(Passenger* list);
 static int opcionesParaModifcar(int opc, Passenger* list);
-static int id;
+static int id=1000;
 
 /// @fn int mode_readArchivo(char*)
 /// @param path

@@ -57,13 +57,60 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return 0 ok pedir datos, -1 datos nullos, -2 erros al pedir datos
+ *   -3 error al obtener id, 1 Salio Ok validando id
  *
  */
 int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int auxID;
+	Passenger aux;
+	Passenger* dirPassenger;
+
+	if(pArrayListPassenger != NULL)
+	{
+		if(pedirDatoPassenger(&aux)==0){
+
+			retorno=0;
+
+			//Genero Id
+			auxID=generadorId();
+
+			//Valido Id
+			if(auxID > 0)
+			{
+				aux.id=auxID;
+
+				//Ya se da de alta
+				dirPassenger=Passenger_newPassenger(aux);
+
+				if(dirPassenger != NULL && !ll_add(pArrayListPassenger, dirPassenger))
+				{
+					//Se dio de alta
+					retorno=0;
+				}
+
+			}
+			else
+			{
+				retorno=-3;
+			}
+
+
+		}
+		else
+		{
+
+			retorno =-2;
+
+		}
+	}
+
+	return retorno;
+
 }
+
 
 /** \brief Modificar datos de pasajero
  *

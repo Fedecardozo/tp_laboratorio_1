@@ -46,6 +46,18 @@ int main()
 					puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
 				}
 				break;
+            case 3://Alta pasajero
+
+            	if(!controller_addPassenger(listaPasajeros))
+            	{
+            		puts("\nSE DIO DE ALTA CON EXITO! ");
+            	}
+            	else
+            	{
+            		puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE ");
+            	}
+
+            	break;
             case 6:
 
             	if(controller_ListPassenger(listaPasajeros) <= 0)
