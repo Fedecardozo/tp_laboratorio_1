@@ -364,7 +364,7 @@ static int opcionesParaModifcar(int opc, Passenger* list){
 		{
 
 			case 1:
-				//char c[MAX_CARACTER];
+
 				retorno = utn_getStringMayusculayMinuscula(aux.nombre, "\nIngrese nombre:","\nError esta mal escrito" , LEN_NAME, 2);
 
 				break;
@@ -448,7 +448,7 @@ int editPassenger(LinkedList* pArrayListPassenger, int id){
 				//-6 mal respuesta si desea continuar
 				aux = (Passenger*) ll_get(pArrayListPassenger, indice);
 				retorno= queModifcar(aux);
-				if(!ll_set(pArrayListPassenger, indice, aux))
+				if(!retorno && !ll_set(pArrayListPassenger, indice, aux))
 				{
 					retorno=1;
 				}
@@ -461,6 +461,8 @@ int editPassenger(LinkedList* pArrayListPassenger, int id){
 		return retorno;
 
 }
+
+
 
 ///FUNCIONES PARA LA BAJA
 

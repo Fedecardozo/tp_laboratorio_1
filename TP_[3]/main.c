@@ -28,6 +28,7 @@ int main()
 	setbuf(stdout,NULL);
 
     int option=0;
+    int error;
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     do{
@@ -56,6 +57,14 @@ int main()
             	{
             		puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE ");
             	}
+
+            	break;
+            case 4://Modificar datos pasajero
+            	error=controller_editPassenger(listaPasajeros);
+				if(error<0)
+				{
+					controller_printErroresEdit(error);
+				}
 
             	break;
             case 6:

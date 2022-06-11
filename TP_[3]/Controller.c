@@ -116,13 +116,48 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
- *
+ * @return 1 un exito 0 ok(-1)Datos nullos (-2) No se encontro ID
+ * (-3)Ingreso mal las opciones
+ * (-4)Ingreso mal los datos a modificar
+ * (-5)mal respuesta de si esta seguro
+ * (-6)mal respuesta si desea continuar
+ * (-7)Lista vacia
  */
 int controller_editPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+
+	int retorno =-1;
+	int id;
+
+	if(pArrayListPassenger != NULL)
+	{
+		if(ll_len(pArrayListPassenger) > 0)
+		{
+			//HASTA ACA EL RETORNO ES -1
+			if(utn_getNumero(&id, "\nIngrese id:", "\nDato invalido. Ingrese nuevamente: ", 1, 9999, 2)==0)
+			{
+
+				//RETORNO PUEDE 0 BIEN <0 QUE ALGO SALIO MAL
+				retorno=editPassenger(pArrayListPassenger,id);
+
+
+			}
+
+		}
+		else
+		{
+			//LISTA VACIA
+			retorno =-7;
+		}
+
+	}
+
+
+
+
+	return retorno;
 }
+
 
 /** \brief Baja de pasajero
  *
@@ -200,4 +235,29 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
     return 1;
+}
+
+/// @fn int controller_printErroresEdit(int)
+/// @param error
+/// @return 0ok -1 no habia errores
+int controller_printErroresEdit(int error)
+{
+	int retorno=-1;
+
+	if(error<0)
+	{
+		retorno=0;
+		switch(error)
+		{
+			case -1: puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE!"); break;
+			case -2: puts("\nNO SE ENCONTRO EL ID!"); break;
+			case -3: puts("\nOPCION INCORRECTA!"); break;
+			case -4: puts("\nDATOS INVALIDOS!"); break;
+			case -5:
+			case -6:	puts("\nRESPUESTA INCORRECTA"); break;
+			case -7: puts("\nNO HAY PASAJEROS PARA MODIFICAR"); break;
+		}
+	}
+
+	return retorno;
 }
