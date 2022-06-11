@@ -101,7 +101,6 @@ void Passenger_delete(Passenger* this){
 
 	if(this != NULL)
 	{
-		puts("Se supone que se borro");
 		free(this);
 	}
 }

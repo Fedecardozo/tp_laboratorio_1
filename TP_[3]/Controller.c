@@ -4,7 +4,55 @@
 #include "Passenger.h"
 #include "parser.h"
 #include "validacionPassenger.h"
+#include "funcionesController.h"
 
+/// @fn int controller_incioPrograma(char*, char*, char*)
+/// @brief inicia el programa, verificando los archivos
+/// esten actualizado, sino es asi lo actualiza, tambien
+/// inicia el id
+/// @param pathId
+/// @param pathText
+/// @param pathBin
+/// @return -1 datos nullos o error al procesar datos
+///  0 salio bien
+int controller_incioFinPrograma(char* pathId,char* pathText,char* pathBin,char* msj){
+
+	int retorno=-1;
+	LinkedList* listaPasajerosBorrados = ll_newLinkedList();
+	LinkedList* listaPasajeros = ll_newLinkedList();
+	int modo;
+
+	if(pathId!=NULL && pathText != NULL && pathBin != NULL && msj != NULL)
+	{
+		modo=mode_readArchivo(pathId);
+		//inicializo id
+		generadorId_readArchivo(pathId);
+		if(modo == 2)
+		{
+			retorno =0;
+		}
+		else
+		{
+			puts(msj);
+			if( !controller_readBorrados(pathId, listaPasajerosBorrados)
+				&& !controller_AgregarBorrados(listaPasajeros,listaPasajerosBorrados)
+				&& !controller_actualizacion(modo, pathBin, pathText,listaPasajeros)
+				&& !controller_saveBorrados(pathId, 2,listaPasajerosBorrados))
+			{
+
+				retorno=0;
+			}
+		}
+		ll_clear(listaPasajeros);
+		ll_clear(listaPasajerosBorrados);
+		ll_deleteLinkedList(listaPasajeros);
+		ll_deleteLinkedList(listaPasajerosBorrados);
+
+    }
+
+    return retorno;
+
+}
 
 /** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
@@ -73,7 +121,6 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 
     return retorno;
 }
-
 
 /** \brief Alta de pasajero
  *
@@ -314,24 +361,102 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -1 datos nullos,-2 error al abrir el archivo
+ * 0 ok
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int i;
+	Passenger* aux;
+	LinkedList* auxLinked = ll_newLinkedList();
+	char pasajero[sizeof(Passenger)];
+
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+		//Clono la lista tal cual viene por parametro y cargo con el archivo
+		auxLinked = perfeccionaLista(path, pArrayListPassenger,controller_loadFromText);
+		//Elimino los borrados de la lista original
+		verificacionEliminados(pArrayListPassenger);
+
+		if(auxLinked != NULL && !File_openModeReadWriteTxt(path, "w+"))
+		{
+			for(i=0; i<ll_len(auxLinked);i++)
+			{
+				aux = (Passenger*)ll_get(auxLinked, i);
+				if(!Passenger_getTxt(aux, pasajero))
+				{
+					retorno = File_openWriteTxtSave(path, pasajero,"r+",SEEK_END);
+
+				}
+			}
+
+		}
+		else
+		{
+			retorno = -2;
+		}
+
+		ll_clear(auxLinked);
+		ll_deleteLinkedList(auxLinked);
+
+	}
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo binario).
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -1 nullos, -2 error al abrir archivo
+ *   0 ok
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int i=1;
+	Passenger* aux;
+	LinkedList* auxLinked = ll_newLinkedList();
+	//char pasajero[sizeof(Passenger)];
+
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+
+		//Clono la lista tal cual viene por parametro y cargo con el archivo
+		auxLinked = perfeccionaLista(path, pArrayListPassenger,controller_loadFromBinary);
+
+		//Elimino los borrados de la lista original
+		verificacionEliminados(pArrayListPassenger);
+
+		if(auxLinked != NULL && !File_openModeReadWriteTxt(path, "wb"))
+		{
+			for(i=0; i<ll_len(auxLinked);i++)
+			{
+				aux = (Passenger*)ll_get(auxLinked, i);
+				if(aux != NULL)
+				{
+
+					retorno=File_openWriteBinarioSave(path, aux, sizeof(Passenger), "r+b",SEEK_END);
+
+				}
+			}
+
+		}
+		else
+		{
+
+			retorno = -2;
+		}
+
+		ll_clear(auxLinked);
+		ll_deleteLinkedList(auxLinked);
+
+	}
+
+    return retorno;
 }
 
 /// @fn int controller_printErroresEdit(int)

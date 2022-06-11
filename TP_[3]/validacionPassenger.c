@@ -3,7 +3,7 @@
 
 static int queModifcar(Passenger* list);
 static int opcionesParaModifcar(int opc, Passenger* list);
-static int id=1000;
+static int id;
 
 /// @fn int mode_readArchivo(char*)
 /// @param path
@@ -21,7 +21,6 @@ int mode_readArchivo(char* path)
 	    {
 	    	fscanf(archivo,"%d\n%d",&modo,&modo);
 	    	fclose(archivo);
-	    	printf("\n%d",modo);
 
 	    }
 
@@ -30,6 +29,11 @@ int mode_readArchivo(char* path)
     return modo;
 }
 
+/// @fn int generadorId_readArchivo(char*)
+/// @brief lee del archivo el ultimo id y lo carga
+/// id statico
+/// @param path
+/// @return retorna id
 int generadorId_readArchivo(char* path)
 {
 	int nuevoId=-1;
@@ -55,6 +59,10 @@ int generadorId_readArchivo(char* path)
     return nuevoId;
 }
 
+/// @fn int generadorId_saveArchivo(char*)
+/// @brief guarda el ultimo id en el archivo
+/// @param path
+/// @return -1 path null, 0 ok
 int generadorId_saveArchivo(char* path){
 
 	int retorno=-1;

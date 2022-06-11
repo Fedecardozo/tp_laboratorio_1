@@ -32,8 +32,19 @@ int main()
     int option=0;
     int error;
     int borrado;
-    int flagSave=1;
+    int flagSave=0;
     LinkedList* listaPasajeros = ll_newLinkedList();
+    LinkedList* listaPasajerosBorrados = ll_newLinkedList();
+
+    if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"INCIANDO PROGRAMA..."))
+    {
+    	puts("BIENVENIDO!!");
+    }
+    else
+    {
+    	puts("HUBO UN ERROR AL CARGAR EL PROGRAMA!");
+    	exit(0);
+    }
 
     do{
     	option = menu();
@@ -92,13 +103,13 @@ int main()
             	{
             		controller_printErroresRemove(borrado);
             	}
-            	else
+            	else if(borrado>=0 && !controller_cargarBorrado(listaPasajerosBorrados, borrado))
             	{
             		puts("\nSE ELIMINO CON EXITO!");
             	}
 
             	break;
-            case 6:
+            case 6://Listar pasajeros
 
             	if(controller_ListPassenger(listaPasajeros) <= 0)
             	{
@@ -112,6 +123,40 @@ int main()
             		controller_printErroresSort(error);
             	}
             	break;
+            case 8://Guardar los datos de los pasajeros en el archivo data.csv (modo texto).
+            	puts("\nESPERE PROCESANDO INFORMACION...");
+
+            	if(!controller_AgregarBorrados(listaPasajeros,listaPasajerosBorrados)
+            		&&	!controller_saveAsText(NAME_ARCHIVO, listaPasajeros))
+            	{
+            		flagSave=1;
+            		if(!controller_saveBorrados(NAME_ID, 1, listaPasajerosBorrados))
+            		{
+						puts("\nSE GUARDO CON EXITO");
+            		}
+            	}
+            	else
+            	{
+            		puts("\nNO HAY DATOS PARA GUARDAR EN EL ARCHIVO");
+            	}
+
+            	break;
+            case 9://Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
+            	puts("\nESPERE PROCESANDO INFORMACION...");
+            	if(!controller_AgregarBorrados(listaPasajeros,listaPasajerosBorrados)
+            		&& !controller_saveAsBinary(NAME_ARCHIVO_BINARIO, listaPasajeros))
+				{
+            		flagSave=1;
+            		if(!controller_saveBorrados(NAME_ID, 0, listaPasajerosBorrados))
+            		{
+						puts("\nSE GUARDO CON EXITO");
+            		}
+				}
+            	else
+            	{
+            		puts("\nNO HAY DATOS PARA GUARDAR EN EL ARCHIVO");
+            	}
+            	break;
             case 10:
 
             	if(!flagSave)
@@ -120,8 +165,10 @@ int main()
             	}
             	else
             	{
-            		puts("PROGRAMA CERRADO! \nHASTA LUEGO!");
-
+            		if(!controller_incioFinPrograma(NAME_ID, NAME_ARCHIVO, NAME_ARCHIVO_BINARIO,"\nCERRANDO PROGRAMA..."))
+            		{
+            			puts("\nPROGRAMA CERRADO HASTA LUEGO!");
+            		}
             	}
 
             	break;
@@ -130,6 +177,7 @@ int main()
             	option=10;
             	break;
         }
+
     }while(option != 10 || !flagSave);
     return 0;
 }
