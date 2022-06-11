@@ -227,6 +227,35 @@ int setear_NuevoId_Passenger(LinkedList* list,int nuevoID)
 
 ///FUNCIONES PARA ORDENAR
 
+/// @fn int opcionesSort()
+/// @return 0 ok o la opcion ingresada o -1 error
+int opcionesSort(int* criterio)
+{
+	int retorno = -1;
+	int opc;
+
+	if(criterio != NULL)
+	{
+		retorno = utn_getNumero(&opc, "\n*ORDENAMIENTO*"
+				"\n1-Ordenar por nombre"
+				"\n2-Ordenar por apellido"
+				"\n3-Ordenar por id"
+				"\n4-Ordenar por precio"
+				"\n5-Salir"
+				"\nIngrese opcion: ", "\nError!, ingrese nuevamente:", 1, 5, 2);
+		if(!retorno && opc != 5 &&
+		  !utn_getNumero(criterio, "\n*Forma* \n0-Descendente \n1-Ascendente \nIngrese opcion: "
+				, "Error!,Ingrese nuevamente: ", 0, 1, 1))
+		{
+			retorno=opc;
+		}
+	}
+
+
+	return retorno;
+
+}
+
 int sortId(void* pasajero1 ,void* pasajero2){
 
 	int retorno = 0;
@@ -250,6 +279,89 @@ int sortId(void* pasajero1 ,void* pasajero2){
 				retorno=-1;
 			}
 			if(id1 == id2)
+			{
+				retorno=0;
+			}
+
+		}
+	}
+
+	return retorno;
+}
+
+int sortName(void* pasajero1 ,void* pasajero2){
+
+	int retorno = 0;
+	Passenger* aux1;
+	Passenger* aux2;
+	char name1[LEN_NAME];
+	char name2[LEN_NAME];
+
+	if(pasajero1 != NULL && pasajero2 != NULL)
+	{
+		aux1 = (Passenger*) pasajero1;
+		aux2 = (Passenger*) pasajero2;
+		if(!Passenger_getNombre(aux1, name1) && !Passenger_getNombre(aux2, name2))
+		{
+			if(name1 != NULL && name2 != NULL)
+			{
+				retorno = strcmpi(name1,name2);
+			}
+
+		}
+	}
+
+	return retorno;
+}
+
+int sortApellido(void* pasajero1 ,void* pasajero2){
+
+	int retorno = 0;
+	Passenger* aux1;
+	Passenger* aux2;
+	char lastName1[LEN_APELLIDO];
+	char lastName2[LEN_APELLIDO];
+
+	if(pasajero1 != NULL && pasajero2 != NULL)
+	{
+		aux1 = (Passenger*) pasajero1;
+		aux2 = (Passenger*) pasajero2;
+		if(!Passenger_getApellido(aux1, lastName1) && !Passenger_getApellido(aux2, lastName2))
+		{
+			if(lastName1 != NULL && lastName2 != NULL)
+			{
+				retorno = strcmpi(lastName1,lastName2);
+			}
+
+		}
+	}
+
+	return retorno;
+}
+
+int sortPrecio(void* pasajero1 ,void* pasajero2){
+
+	int retorno = 0;
+	Passenger* aux1;
+	Passenger* aux2;
+	float precio1;
+	float precio2;
+
+	if(pasajero1 != NULL && pasajero2 != NULL)
+	{
+		aux1 = (Passenger*) pasajero1;
+		aux2 = (Passenger*) pasajero2;
+		if(!Passenger_getPrecio(aux1, &precio1) && !Passenger_getPrecio(aux2, &precio2))
+		{
+			if(precio1 > precio2)
+			{
+				retorno=1;
+			}
+			if(precio1 < precio2)
+			{
+				retorno=-1;
+			}
+			if(precio1 == precio2)
 			{
 				retorno=0;
 			}

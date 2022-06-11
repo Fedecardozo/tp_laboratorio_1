@@ -30,6 +30,7 @@ int main()
     int option=0;
     int error;
     int borrado;
+    int flagSave=1;
     LinkedList* listaPasajeros = ll_newLinkedList();
 
     do{
@@ -89,8 +90,32 @@ int main()
             		puts("\nNO HAY PASAJEROS CARGADOS!!!");
             	}
             	break;
+            case 7://Ordenar pasajeros
+            	error=controller_sortPassenger(listaPasajeros);
+            	if(error<=0)
+            	{
+            		controller_printErroresSort(error);
+            	}
+            	break;
+            case 10:
+
+            	if(!flagSave)
+            	{
+            		puts("\nLE FALTO GUARDAR EL ARCHIVO!");
+            	}
+            	else
+            	{
+            		puts("PROGRAMA CERRADO! \nHASTA LUEGO!");
+
+            	}
+
+            	break;
+            default://10. Salir
+            	puts("\nHUBO UN ERROR!! INTENTELO MAS TARDE! ");
+            	option=10;
+            	break;
         }
-    }while(option != 10);
+    }while(option != 10 || !flagSave);
     return 0;
 }
 

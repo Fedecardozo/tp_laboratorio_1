@@ -10,3 +10,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
 
 int controller_printErroresEdit(int error);
 int controller_printErroresRemove(int error);
+int controller_printErroresSort(int error);

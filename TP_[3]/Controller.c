@@ -253,12 +253,41 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return int
+ * \return -1 lista nulla,-2 lista vacia
+ *   -3 No se ordeno
  *
  */
 int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno=-1;
+	int criterio;
+	int opc;
+
+	if(pArrayListPassenger != NULL )
+	{
+		if(ll_len(pArrayListPassenger)>0)
+		{
+			opc=opcionesSort(&criterio);
+
+			puts("\nESPERE PROCESANDO INFORMACION...");
+			switch(opc)
+			{
+				case 1:retorno=ll_sort(pArrayListPassenger, sortName, criterio); break;
+				case 2:retorno=ll_sort(pArrayListPassenger, sortApellido, criterio); break;
+				case 3:retorno=ll_sort(pArrayListPassenger, sortId, criterio); break;
+				case 4:retorno=ll_sort(pArrayListPassenger, sortPrecio, criterio); break;
+				default: retorno=-3; break;
+			}
+
+		}
+		else
+		{
+			retorno=-2;
+		}
+
+	}
+
+	return retorno;
 }
 
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
@@ -326,6 +355,28 @@ int controller_printErroresRemove(int error)
 			case -2: puts("\nNO SE ENCONTRO EL ID!"); break;
 			case -3: puts("\nNO HAY PASAJEROS PARA CARGADOS!"); break;
 			case -4: puts("\nNO SE BORRO EL PASAJERO!"); break;
+		}
+	}
+
+	return retorno;
+}
+
+/// @fn int controller_printErroresSort(int)
+/// @param error
+/// @return 0 ok -1 no habia errores
+int controller_printErroresSort(int error)
+{
+	int retorno=-1;
+
+	if(error<=0)
+	{
+		retorno=0;
+		switch(error)
+		{
+			case 0: puts("\nSE ORDENO EXISOTOSAMENTE"); break;
+			case -1: puts("\nHUBO UN PROBLEMA INTENTELO MAS TARDE!"); break;
+			case -2: puts("\nNO HAY PASAJEROS PARA CARGADOS!"); break;
+			case -3: puts("\nNO SE ORDENO!"); break;
 		}
 	}
 
