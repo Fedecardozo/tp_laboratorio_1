@@ -441,7 +441,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     	returnAux = 1;
     	for(int i=0; i<ll_len(this2); i++)
     	{
-			if(!ll_contains(this, ll_get(this, i)))
+			if(!ll_contains(this, ll_get(this2, i)))
 			{
 				returnAux = 0;
 				break;
