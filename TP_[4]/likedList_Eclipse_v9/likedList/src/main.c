@@ -30,10 +30,10 @@ int main(void)
     //startTesting(2);  // ll_len - ok
 	//startTesting(3);  // getNode - test_getNode - ok
 	//startTesting(4);  // addNode - test_addNode - ok
-	//startTesting(5);  // ll_add
-	startTesting(6);  // ll_get
+	//startTesting(5);  // ll_add - ok
+	//startTesting(6);  // ll_get - ok
 	//startTesting(7);  // ll_set
-	//startTesting(8);  // ll_remove
+	startTesting(8);  // ll_remove
 	//startTesting(9);  // ll_clear
 	//startTesting(10); // ll_deleteLinkedList
 	//startTesting(11); // ll_indexOf
