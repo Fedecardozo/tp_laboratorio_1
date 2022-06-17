@@ -115,13 +115,13 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 					nodeAnterior = getNode(this, nodeIndex);
 					//El nuevo nodo pasa apuntar al primer nodo
 					nodeNew->pNextNode = nodeAnterior;
-					//Pasa a ser el primer nodo
+					//El nuevo nodo pasa a ser el primer nodo
 					this->pFirstNode = nodeNew;
 
 				}
 				else
 				{
-					//Apunta al nodo siguiente del nodeIndex
+					//El nuevo nodo apunta al nodo siguiente del nodeIndex
 					nodeNew->pNextNode = getNode(this, nodeIndex+1);
 					//guardo nodo anterior
 					nodeAnterior = getNode(this, nodeIndex-1);
@@ -164,6 +164,11 @@ int ll_add(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    if(this != NULL)
+    {
+    	returnAux = addNode(this, ll_len(this), pElement);
+    }
+
     return returnAux;
 }
 
@@ -178,7 +183,12 @@ int ll_add(LinkedList* this, void* pElement)
 void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
-
+    Node* nodeAux=NULL;
+    if(this != NULL && index >= 0 && index < ll_len(this))
+    {
+    	nodeAux = getNode(this, index);
+    	returnAux = nodeAux->pElement;
+    }
     return returnAux;
 }
 
