@@ -484,7 +484,6 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 }
 
 
-
 /** \brief Crea y retorna una nueva lista con los elementos de la lista pasada como parametro
  *
  * \param pList LinkedList* Puntero a la lista
@@ -497,9 +496,7 @@ LinkedList* ll_clone(LinkedList* this)
 
     if(this != NULL)
     {
-    	cloneArray = ll_newLinkedList();
     	cloneArray = ll_subList(this,0, ll_len(this));
-
     }
 
     return cloneArray;
@@ -516,6 +513,39 @@ LinkedList* ll_clone(LinkedList* this)
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
     int returnAux =-1;
+    int flagSwap=0;
+    int newLimite=0;
+    void* voidAux=NULL;
+    void* voidAux2=NULL;
+
+    if(this != NULL && pFunc != NULL && order >=0 && order <=1)
+    {
+    	returnAux=0;
+    	newLimite = ll_len(this);
+    	do
+    	{
+    		flagSwap=0;
+    		for(int i=0; i<newLimite-1; i++)
+    		{
+    			voidAux = ll_get(this, i);
+    			voidAux2 = ll_get(this, i+1);
+    			if(order && pFunc(voidAux,voidAux2))
+    			{
+    				ll_set(this, i, voidAux2);
+    				ll_set(this, i+1, voidAux);
+    				flagSwap=1;
+    			}
+    			else if(!order && pFunc(voidAux,voidAux2)<0)
+    			{
+    				ll_set(this, i, voidAux2);
+    				ll_set(this, i+1, voidAux);
+    				flagSwap=1;
+    			}
+    		}
+    		newLimite--;
+
+    	}while(flagSwap);
+    }
 
     return returnAux;
 
