@@ -495,6 +495,13 @@ LinkedList* ll_clone(LinkedList* this)
 {
     LinkedList* cloneArray = NULL;
 
+    if(this != NULL)
+    {
+    	cloneArray = ll_newLinkedList();
+    	cloneArray = ll_subList(this,0, ll_len(this));
+
+    }
+
     return cloneArray;
 }
 
