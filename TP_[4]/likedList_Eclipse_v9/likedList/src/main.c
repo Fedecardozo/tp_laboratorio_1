@@ -33,8 +33,8 @@ int main(void)
 	//startTesting(5);  // ll_add - ok
 	//startTesting(6);  // ll_get - ok
 	//startTesting(7);  // ll_set
-	startTesting(8);  // ll_remove
-	//startTesting(9);  // ll_clear
+	//startTesting(8);  // ll_remove
+	startTesting(9);  // ll_clear
 	//startTesting(10); // ll_deleteLinkedList
 	//startTesting(11); // ll_indexOf
 	//startTesting(12); // ll_isEmpty
