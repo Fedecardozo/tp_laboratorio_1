@@ -295,6 +295,12 @@ int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
 
+    if(this != NULL)
+    {
+    	this->pFirstNode = NULL;
+    	returnAux=0;
+    }
+
     return returnAux;
 }
 
@@ -309,6 +315,17 @@ int ll_deleteLinkedList(LinkedList* this)
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+
+    if(this != NULL)
+    {
+    	for (int i = 0; i < ll_len(this); i++)
+    	{
+			if(ll_get(this, i)== pElement)
+			{
+				returnAux = i;
+			}
+		}
+    }
 
     return returnAux;
 }
