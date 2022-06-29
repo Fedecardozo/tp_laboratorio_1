@@ -59,7 +59,7 @@ int controller_incioFinPrograma(char* pathId,char* pathText,char* pathBin,char* 
  * \param path char*
  * \param pArrayListPassenger LinkedList*
  * \return -2 Error al abrir el archivo, -1 datos nullos
- *  0 ok
+ *  0 datos ya cargados, 1 ok
  *
  */
 int controller_loadFromText(char* path,LinkedList* pArrayListPassenger)

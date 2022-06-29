@@ -52,10 +52,14 @@ int main()
         {
         	case 1://Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
 
-				if(!controller_loadFromText(NAME_ARCHIVO,listaPasajeros))
+        		error = controller_loadFromText(NAME_ARCHIVO,listaPasajeros);
+				if(!error)
+				{
+					puts("\nLISTA CARGADA CON ANTERIORIDAD!!");
+				}
+				else if(error>0)
 				{
 					puts("\nCARGA EXITOSA!!");
-
 				}
 				else
 				{
@@ -63,16 +67,19 @@ int main()
 				}
 				break;
             case 2://Cargar los datos de los pasajeros desde el archivo data.csv (modo binario).
-
-                if(!controller_loadFromBinary(NAME_ARCHIVO_BINARIO,listaPasajeros))
-                {
-                	puts("\nCARGA EXITOSA!!");
-
-                }
-			    else
-			    {
-			    	puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
-			    }
+            	error = controller_loadFromBinary(NAME_ARCHIVO_BINARIO,listaPasajeros);
+                if(!error)
+				{
+                	puts("\nLISTA CARGADA CON ANTERIORIDAD!!");
+				}
+				else if(error>0)
+				{
+					puts("\nCARGA EXITOSA!!");
+				}
+				else
+				{
+					puts("\nHUBO UN ERROR AL CARGAR LA INFORMACION. INTENTELO MAS TARDE...");
+				}
 
             	break;
             case 3://Alta pasajero

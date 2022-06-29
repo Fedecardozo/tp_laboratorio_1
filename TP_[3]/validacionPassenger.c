@@ -152,7 +152,7 @@ int pedirDatoPassenger(Passenger* p){
 		if(utn_getStringMayusculayMinuscula(p1.nombre, "\nIngrese nombre:","\nError esta mal escrito" , LEN_NAME, 2)==0
 		   && utn_getStringMayusculayMinuscula(p1.apellido, "\nIngrese apellido:","\nError esta mal escrito" , LEN_APELLIDO, 2)==0
 		   && utn_getNumeroFlotante(&p1.precio, "\nIngrese precio: ", "\nError ingrese nuevamente: ", 0, 99999, 2)==0
-		   && utn_getStringLetrasYnumerosLimite(p1.codigoVuelo, "\nIngrese codigo 10 digitos: ", "\nError, 10 digitos numeros y letras", 5,9, 2)==0
+		   && utn_getStringLetrasYnumerosLimite(p1.codigoVuelo, "\nIngrese codigo de 7 a 10 digitos: ", "\nError, 10 digitos numeros y letras", 7,10, 2)==0
 		   && utn_getNumero(&p1.tipoPasajero, "\n**Tipos de pasajeros** \n1-FirstClass \n2-ExecutiveClass \n3-EconomyClass  \nIngrese tipo:",
 				   "\nError ingrese nuevamente:", 1, 3, 2)==0)
 		{
@@ -526,14 +526,14 @@ static int opcionesParaModifcar(int opc, Passenger* list){
 
 			case 4:
 
-				utn_getNumero(&aux.tipoPasajero, "\n**Tipos de pasajeros** \n1-FirstClass \n2-ExecutiveClass \n3-EconomyClass  \nIngrese tipo:",
+				retorno = utn_getNumero(&aux.tipoPasajero, "\n**Tipos de pasajeros** \n1-FirstClass \n2-ExecutiveClass \n3-EconomyClass  \nIngrese tipo:",
 									   "\nError ingrese nuevamente:", 1, 3, 2);
 
 				break;
 
 			case 5:
 
-				retorno = utn_getStringLetrasYnumerosLimite(aux.codigoVuelo, "\nIngrese codigo digitos: ", "\nError, ingrese digitos numeros y letras", 5,9, 2);
+				retorno = utn_getStringLetrasYnumerosLimite(aux.codigoVuelo, "\nIngrese codigo de vuelo de 7 a 10 digitos: ", "\nError, ingrese digitos numeros y letras", 7,10, 2);
 
 				break;
 

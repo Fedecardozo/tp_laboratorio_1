@@ -9,7 +9,7 @@
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return -1 datos nulls 0 ok
+ * \return -1 datos nulls 0 ok, 1 cargo 1 o mas a lista
  *
  */
 int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
@@ -42,7 +42,11 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 			{
 				pasajero = Passenger_newParametrosTxt(varId, varName, varTypePassenger, varLastname, varPrice, varFlycode, varStatusFlight);
 				//Guardo direccion de memoria en la linkedlist
-				retorno=ll_add(pArrayListPassenger,pasajero);
+				if(!ll_add(pArrayListPassenger,pasajero))
+				{
+					retorno = 1;
+				}
+
 			}
 
 		}while(!feof(pFile));
@@ -57,7 +61,7 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
- * \return -1 datos nulls 0 ok
+ * \return -1 datos nulls 0 ok, 1 cargo 1 o mas a lista
  *
  */
 int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
@@ -81,7 +85,10 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 				pasajero = Passenger_newPassenger(aux);
 
 				//Guardo direccion de memoria en la linkedlist
-				retorno=ll_add(pArrayListPassenger, pasajero);
+				if(!ll_add(pArrayListPassenger, pasajero))
+				{
+					retorno = 1;
+				}
 
 
 			}
