@@ -43,8 +43,7 @@ int controller_incioFinPrograma(char* pathId,char* pathText,char* pathBin,char* 
 				retorno=0;
 			}
 		}
-		ll_clear(listaPasajeros);
-		ll_clear(listaPasajerosBorrados);
+
 		ll_deleteLinkedList(listaPasajeros);
 		ll_deleteLinkedList(listaPasajerosBorrados);
 
