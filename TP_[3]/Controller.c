@@ -245,7 +245,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 
 	if(pArrayListPassenger != NULL)
 	{
-		if(ll_len(pArrayListPassenger) > 0)
+		if(controller_ListPassenger(pArrayListPassenger) > 0)
 		{
 			if(utn_getNumero(&id, "\nIngrese numero ID:", "\nError Ingrese nuevamente: ", 0, 9999, 2)==0)
 			{
