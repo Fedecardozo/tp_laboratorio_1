@@ -199,7 +199,7 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 
 	if(pArrayListPassenger != NULL)
 	{
-		if(ll_len(pArrayListPassenger) > 0)
+		if(controller_ListPassenger(pArrayListPassenger)>0)
 		{
 			//HASTA ACA EL RETORNO ES -1
 			if(utn_getNumero(&id, "\nIngrese id:", "\nDato invalido. Ingrese nuevamente: ", 1, 9999, 2)==0)

@@ -426,6 +426,9 @@ int sortPrecio(void* pasajero1 ,void* pasajero2){
 
 	if(list != NULL){
 
+		puts("\nPASAJERO A MODIFICAR!");
+		imprimirUnPassenger(list);
+
 		do{
 			retorno= utn_getNumero(&opc, "\nOpciones de lo que desea modificar"
 					"\n1-Nombre"
@@ -433,17 +436,17 @@ int sortPrecio(void* pasajero1 ,void* pasajero2){
 					"\n3-Precio"
 					"\n4-Tipo de pasajero"
 					"\n5-Codigo de vuelo"
+					"\n6-No modificar"
 					"\nIngrese opcion: ",
-					"\nError Ingrese nuevamente: ", 1, 5, 2);
+					"\nError Ingrese nuevamente: ", 1, 6, 2);
 
-			if(retorno==0)
+			if(!retorno && opc != 6)
 			{
 				retorno= opcionesParaModifcar(opc, &aux);
 
-				if(retorno==0)
+				if(!retorno)
 				{
 					respuesta=preguntarSoN("\nEstas seguro? Si-No: ", 2, "\nIngrese [si] o [no]: ");
-
 					if(respuesta)
 					{
 						*list=aux;
@@ -459,10 +462,8 @@ int sortPrecio(void* pasajero1 ,void* pasajero2){
 						retorno=-5;
 						break;
 					}
-
-
 				}
-				else
+				else if(retorno < 0)
 				{
 					//Mal los datos a modificar
 					retorno=-4;
@@ -477,6 +478,12 @@ int sortPrecio(void* pasajero1 ,void* pasajero2){
 					retorno=-6;
 					break;
 				}
+
+			}
+			else if (opc == 6)
+			{
+				retorno = 0;
+				break;
 			}
 			else
 			{

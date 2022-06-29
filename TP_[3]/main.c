@@ -95,7 +95,8 @@ int main()
 
             	break;
             case 4://Modificar datos pasajero
-            	error=controller_editPassenger(listaPasajeros);
+
+				error=controller_editPassenger(listaPasajeros);
 				if(error<0)
 				{
 					controller_printErroresEdit(error);
