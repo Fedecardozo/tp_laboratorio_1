@@ -329,21 +329,28 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 	int retorno=-1;
 	int criterio;
 	int opc;
+	LinkedList* aux=NULL;
 
 	if(pArrayListPassenger != NULL )
 	{
 		if(ll_len(pArrayListPassenger)>0)
 		{
+			aux = ll_clone(pArrayListPassenger);
 			opc=opcionesSort(&criterio);
 
 			puts("\nESPERE PROCESANDO INFORMACION...");
 			switch(opc)
 			{
-				case 1:retorno=ll_sort(pArrayListPassenger, sortName, criterio); break;
-				case 2:retorno=ll_sort(pArrayListPassenger, sortApellido, criterio); break;
-				case 3:retorno=ll_sort(pArrayListPassenger, sortId, criterio); break;
-				case 4:retorno=ll_sort(pArrayListPassenger, sortPrecio, criterio); break;
+				case 1:retorno=ll_sort(aux, sortName, criterio); break;
+				case 2:retorno=ll_sort(aux, sortApellido, criterio); break;
+				case 3:retorno=ll_sort(aux, sortId, criterio); break;
+				case 4:retorno=ll_sort(aux, sortPrecio, criterio); break;
 				default: retorno=-3; break;
+			}
+
+			if(!retorno)
+			{
+				retorno = controller_ListPassenger(aux);
 			}
 
 		}
